@@ -27,6 +27,8 @@ Build a database by webscrapping all info from website
 
 ---
 
+
+
 # To Do
 - [ ] Redo all function + variable names. 
 	- [ ] Remove scrape at the end
