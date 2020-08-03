@@ -47,7 +47,6 @@ Build a database by webscrapping all info from website
 	- [ ] 
 
 
-
 ---
 ### Product hrefs
 *scrape all items from search result*
