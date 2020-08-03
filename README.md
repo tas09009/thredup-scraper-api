@@ -27,6 +27,8 @@ Build a database by webscrapping all info from website
 
 ---
 
+
+
 # To Do
 - [ ] Redo all function + variable names. 
 	- [ ] Remove scrape at the end
@@ -43,7 +45,6 @@ Build a database by webscrapping all info from website
 ### Integrate IP addresses
 - [ ] [Web scraping with Python](https://towardsdatascience.com/web-scraping-with-python-a-to-copy-z-277a445d64c7)
 	- [ ] 
-
 
 
 ---
