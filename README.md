@@ -1,53 +1,62 @@
-# Thredup-database
+# Basic product scrape
+**basic_scrape.csv**
+*webscrapes individual product links from a search page (50 per page) and then parses each product link to pull the following information*
 
-Build a database by webscrapping all info from website
-
-### Functions created thus far
-**csv_product_href_1:**
 - product_href_scrape: urls of each item on a page
-
-
-**csv_product_description_2:** using the list from above as a forloop. Per item
 - image_scrape
 - materials_scrape
-- size_and_measurement
+- size
+- measurement
 - category_within_item
 
+### To Do
 
+Avoid getting blocked
+- [ ] combine code with IP Addresses function (safeguard)
+- [ ] or add 3 - 5 second delay per request
 
-*Concurent with csv files above*
-- proxies_pool: IP Addresses for actual webscrape
+Naming convention
+- [x] redo all variable names
+	- [x] remove scrape at the end
+- [x] remove variables with same name:
+	- [x] Ex: product_item. Doesn't affect code. Just not good code I suppose
 
-*To be used later*
-- category_scrape: list of clothing category titles (features)
-	- category_urls: url for each item in category_scrape
-	- product_filter_1sthalf: Product category type, first half of page
-	- pattern_accents_2ndhalf: Product category type, 2nd half of page
+Track Time
+- [ ] print time stamps for exports. progress bar?
+- [ ] module: timeit - time each step of program. *tricky since everything is in a forloop*
+	- [ ] send time outputs to a log file
+	- [ ] speed up program and compare log files #Future
+- [ ] progress bar of extracting the 30k+ items 
 
-
----
-
-
-
-# To Do
-- [ ] Redo all function + variable names. 
-	- [ ] Remove scrape at the end
-- [ ] combine functions within each other *need to use classes*
-	- [ ] watch video on [classes](https://www.youtube.com/watch?v=ZDa-Z5JzLYM)
-	- [ ] uses classes throughout code. *Store lists in classes*
-	- [ ] remove all urls except for the main one
+Readme.md + github
 - [ ] Clean up all notes on this page
 - [ ] Clean up all code (as much as possible)
 - [ ] send both to Github. Notes as README.md page
 - [ ] create a kanban board?
-	- [ ] within markdown page? or projects page?
+	- [ ] projects page?
+
+### Done
+- [x] ~~import files~~
+	- [x] ~~soupified_list won't import at all: txt/py or str/non-string~~
+- [x] csv file
+- [x] remove all urls except for the main one
+
+
+
+
+
+
+
+
 
 ### Integrate IP addresses
-- [ ] [Web scraping with Python](https://towardsdatascience.com/web-scraping-with-python-a-to-copy-z-277a445d64c7)
-	- [ ] 
+- [ ] [Web scraping with Python](https://medium.com/web-scraping-a-z) - 3 medium articles
+
 
 
 ---
+
+## Full product scrape
 ### Product hrefs
 *scrape all items from search result*
 - [x] pull href links for 1 search-result page
@@ -59,15 +68,21 @@ Build a database by webscrapping all info from website
 	- [x] Dictionary for categories within categories. Ex: dresses will have "Maxi" and "Midi" types where as tops will have "blouses" and "tunics"
 		- [x] need a url for each category - regex urls 
 			- [x] list of categories, for loop to use cateogry within a url
-- [ ] combine code with IP Addresses function (safeguard)
-- [ ]  create a database - use a simple csv file?
-	- [ ]  extract all links to database
 
-### Materials
-- [ ]  
+
 
 ### Putting it all together
+*To be used later*
+- category_scrape: list of clothing category titles (features)
+	- category_urls: url for each item in category_scrape
+	- product_filter_1sthalf: Product category type, first half of page
+	- pattern_accents_2ndhalf: Product category type, 2nd half of page
 
+
+
+
+- [ ] combine functions within each other *need to use classes*
+	- [ ] watch video on [classes](https://www.youtube.com/watch?v=ZDa-Z5JzLYM)
 ---
 # Notes
 - when jumping between different categories, the "sort by" method changes to "Recently Discounted" by default
@@ -80,9 +95,12 @@ Build a database by webscrapping all info from website
 - Catch microplastics in wahsing machine (if you have to buy polyester) with: 
 	- [coraball](https://coraball.com/)
 	- [filtrol](https://filtrol.net/)
+	- [Guppyfriend washing bag](https://us.guppyfriend.com/)
 - [Express casual pants](https://www.thredup.com/product/women-polyester-express-maroon-casual-pants/78663501?sizing_id=750,755,756,765,774,791,799) - amour vert knockoff
 - Thredup's classes, id, div tags all have unintuitive names. Other websites's labels make much more sense
 - [thredup.com/robots.txt](https://www.thredup.com/robots.txt)
+- Tutorial: [Web Scraping and BeautifulSoup](https://www.dataquest.io/blog/web-scraping-beautifulsoup/) exactly what I'm doing
+
 
 ## Clothing categories
 *each type of clothing has it's own tags/features*
