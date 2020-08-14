@@ -1,5 +1,5 @@
 # Basic product scrape
-**basic_scrape.csv**
+**basic_scrape.py**
 *webscrapes individual product links from a search page (50 per page) and then parses each product link to pull the following information*
 
 - product_href_scrape: urls of each item on a page
