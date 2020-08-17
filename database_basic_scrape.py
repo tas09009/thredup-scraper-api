@@ -26,7 +26,6 @@ Exclude One size
 url = 'https://www.thredup.com/petite?department_tags=petite&sizing_id=755%2C765%2C778%2C750%2C756%2C774%2C791%2C799&skip_equivalents=true&sort=newest_first&page='
 
 
-
 # Lists to store scraped data
 hrefs = []
 images = []

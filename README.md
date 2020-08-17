@@ -11,6 +11,8 @@
 
 ### To Do
 
+Postgresql database
+
 Avoid getting blocked
 - [ ] combine code with IP Addresses function (safeguard)
 - [ ] or add 3 - 5 second delay per request
@@ -32,8 +34,26 @@ Readme.md + github
 - [ ] Clean up all notes on this page
 - [ ] Clean up all code (as much as possible)
 - [ ] send both to Github. Notes as README.md page
+- [ ] Approve "little_feature" + "basic_scrape" mergers, in that order
 - [ ] create a kanban board?
 	- [ ] projects page?
+
+
+
+
+CSV files for tops & bottoms
+
+View/preview images
+
+### General To do:
+*Need to organize by order*
+- [ ] functions & classes
+- [ ] python library
+- [ ] blog post writup
+- [ ] database
+- [ ] chrome extension
+- [ ] plan out ML model
+- [ ] code efficiency
 
 ### Done
 - [x] ~~import files~~
@@ -41,6 +61,15 @@ Readme.md + github
 - [x] csv file
 - [x] remove all urls except for the main one
 
+
+### Software needed for this project
+
+- requests
+- re
+- beautifulsoup
+- pandas
+- numpy
+- postgresql
 
 
 
@@ -101,6 +130,35 @@ Readme.md + github
 - [thredup.com/robots.txt](https://www.thredup.com/robots.txt)
 - Tutorial: [Web Scraping and BeautifulSoup](https://www.dataquest.io/blog/web-scraping-beautifulsoup/) exactly what I'm doing
 
+
+
+## Fabrics
+Sources:
+- [4 Fabrics That Are Harming Our Planet + What To Look For Instead](https://www.mindbodygreen.com/0-25104/the-4-most-toxic-fabrics-their-ecofriendly-upgrades.html)
+- [The Most Harmful Fabrics in Fashion (and A Personal Challenge](https://www.jessannkirby.com/the-most-harmful-fabrics-in-fashion-and-a-personal-challenge/)
+- 
+
+- banned fabric keywords: Polyester, Polyamide, Acrylic, No Fabric Content
+- Next level to block: nylon, rayon, viscose
+- Good fabrics: organic cotton, wool, silk, hemp, linen, cupro, ramie, tencel (used only)
+- Iffy fabircs: 
+	- modal 
+		- Good: closed-loop system, fewer harmful byproducts 
+		- Bad: semi-seynthetic
+	- tencel
+		- Good: closed-loop process. Depending on chemicals - biodegradable
+		- Bad: man-made fabric. Heavy use of chemicals
+	- Acetate and triacetate
+		- Good: wood pulp
+		- Bad: man-made fibre
+
+
+## Used clothing sites:
+etsy
+ebay
+poshmark
+The Real Real (luxury)
+Vestiaire Collective (luxury)
 
 ## Clothing categories
 *each type of clothing has it's own tags/features*
