@@ -34,6 +34,10 @@ size = [] # ['Size S '] removes the word 'petite' as well, not needed
 measurements = [] # ['24" Length']
 category_type = [] # Tops, bottoms
 
+# ------------------------------------------------------------------------------------
+'''
+Extract product link for each item on page
+'''
 
 
 product_list = []
