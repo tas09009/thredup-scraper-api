@@ -29,11 +29,17 @@ url = 'https://www.thredup.com/petite?department_tags=petite&sizing_id=755%2C765
 # Lists to store scraped data
 hrefs = []
 images = []
-materials = [] # materials
+materials = []
 size = [] # ['Size S '] removes the word 'petite' as well, not needed
 measurements = [] # ['24" Length']
 category_type = [] # Tops, bottoms
+price = []
+brand = []
 
+# ------------------------------------------------------------------------------------
+'''
+Extract product link for each item on page
+'''
 
 
 product_list = []
@@ -64,8 +70,8 @@ for link in hrefs:
 
     image_search = product_page_soupified.findAll('div', {'class': '_30o7eOhD-KenCXDTlPWxw'})
     for i in image_search:
-        image_href = i.find('a', {'class': '_17adkz6zswDjAoZ8PhDmPr'}).get('href')
-        images.append(image_href)
+        product = i.find('a', {'class': '_17adkz6zswDjAoZ8PhDmPr'}).get('href')
+        images.append(product)
 
 
     product_materials = []
@@ -95,6 +101,18 @@ for link in hrefs:
         product = i.find('a', {'class': 'spot-grey-7 JdCj53-vTvU5pLpj6NlFo'}).getText()
         category_type.append(product)
 
+
+    price_search = product_page_soupified.findAll('section', {'class': 'ui-container u-flex _36TeFiFjuh5xlahzk4iZeQ'})
+    for i in price_search:
+        product = i.find('span', {'class': 'RFcwwL7_eda8sdWkyafAr spot-coral price'}).getText()
+        price.append(product)
+
+
+    brand_search = product_page_soupified.findAll('div', {'class': 'u-flex _20pksgdpcQ2E8r4MYcsBXl'})
+    for i in brand_search:
+        product = i.find('a', {'class': '_32zNmjMSfxcoBWGGlzPobp'}).getText()
+        brand.append(product)
+
     # Show progress of completed items    
     # print('Completed {i}/50 items'.format(i=i)
 
@@ -106,7 +124,9 @@ basic_scrape = pd.DataFrame({
      'Materials': materials,
      'Size': size,
      'Measurements': measurements,
-     'Category_Type': category_type})
+     'Category_Type': category_type,
+     'Price': price,
+     'Brand': brand})
 
 # df = pd.DataFrame.from_dict(basic_scrape)
 

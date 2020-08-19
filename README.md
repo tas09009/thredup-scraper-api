@@ -1,27 +1,87 @@
+
+
+
+# Thredup Database
+*A webscraper to extract the following clothing information from thredup's website for petite clothing*
+
+Information to be extracted | Function | Example
+----|-----|-----
+Link | url of each item on a page | [Item_Link](https://www.thredup.com/product/women-rayon-old-navy-green-casual-dress/79862094?sizing_id=755,765,778,750,756,774,791,799)
+Image_Link | front picture of item | [Picture_Link](https://cf-assets-thredup.thredup.com/assets/213871306/retina.jpg)
+Materials | fabric content and it's percentage | 95% Rayon, 5% Spandex
+Size | item size |Size S 
+Measurement | measurements depend on item itself | 25.5" Chest, 34.75" Length
+Category_Type | Type of clothing | Dresses
+
+
+An example of what the database looks like (so far):
+![basic_scrape_table_image](basic_scrape_table_screenshot.png)
+
+
+# Purpose
+> **Quick Intro** Most clothing is environmentally damaging to the environment, even AFTER it's been bought. For example, washing polyester or any plastic-made clothing in the washing machine releases micro-plastics in the ocean. In addition, wearing non-natural fibers is less comfortable, breathable, and falls apart quicker than stronger fabrics made of linen, wool, silk, etc. Of course, we are speaking in general terms. Everything also depends on the company, manufacturer, quality, etc. 
+> Buying used clothing is generally better than new. 
+> - Less environmental damage
+> - less waste ($billions of clothing is thrown away each year)
+> - more available styles since vintage pieces are hard to buy new
+> - many more benefits that you can read ==(include website)==
+
+Objective: 
+- filter out clothing by fabrics (polyester, polyamide, etc.)
+	- second layer of filter for rayon, nylon, etc.
+- sort out clothing specifically by fabrics (wool, linen, etc.)
+
+# Installation
+Linux:
+Mac:
+Windows:
+ 
+## Programs
+=======
 # Basic product scrape
+
 **basic_scrape.py**
 *webscrapes individual product links from a search page (50 per page) and then parses each product link to pull the following information*
 
-- product_href_scrape: urls of each item on a page
-- image_scrape
-- materials_scrape
-- size
-- measurement
-- category_within_item
+**thredup_tabs.py**
+***Objective**: Filters out clothing by removing search results with the words: "Polyester”, “Fabric details not available" and "No Fabric Content" on the current thredup search page.*
 
-### To Do
+>**How to use it**
+>- input: url of current page
+>- output: new chrome tabs open one by one only showing fabrics that don't contain any of the banned words. 3 second delay per tab
+
+
+## Requirements
+### Modules
+
+- requests
+- re
+- beautifulsoup
+- pandas
+- numpy
+
+### Software
+- postgresql
+
+
+# Kanban
+To do, Working, Done
+Long-term, Short-term, Working, Done
+
+### To Do *(before scraping all items)*
+
 
 Postgresql database
 
+Add logger
+
+Add bug tracker
+
 Avoid getting blocked
 - [ ] combine code with IP Addresses function (safeguard)
-- [ ] or add 3 - 5 second delay per request
+- [ ] or add 1 - 5 second random delay per request
 
-Naming convention
-- [x] redo all variable names
-	- [x] remove scrape at the end
-- [x] remove variables with same name:
-	- [x] Ex: product_item. Doesn't affect code. Just not good code I suppose
+
 
 Track Time
 - [ ] print time stamps for exports. progress bar?
@@ -38,14 +98,11 @@ Readme.md + github
 - [ ] create a kanban board?
 	- [ ] projects page?
 
-
-
-
 CSV files for tops & bottoms
 
 View/preview images
 
-### General To do:
+**General To do:**
 *Need to organize by order*
 - [ ] functions & classes
 - [ ] python library
@@ -54,38 +111,36 @@ View/preview images
 - [ ] chrome extension
 - [ ] plan out ML model
 - [ ] code efficiency
+	- [ ] Use lambda functions (map, filter, reduce) to simplify code?
 
-### Done
+
+
+
+
+
+
+
+
+
+
+
+---
+
+# Done
+## Full product scrape
+
+Naming convention
+- [x] redo all variable names
+	- [x] remove scrape at the end
+- [x] remove variables with same name:
+	- [x] Ex: product_item. Doesn't affect code. Just not good code I suppose
+
 - [x] ~~import files~~
 	- [x] ~~soupified_list won't import at all: txt/py or str/non-string~~
 - [x] csv file
 - [x] remove all urls except for the main one
 
 
-### Software needed for this project
-
-- requests
-- re
-- beautifulsoup
-- pandas
-- numpy
-- postgresql
-
-
-
-
-
-
-
-
-### Integrate IP addresses
-- [ ] [Web scraping with Python](https://medium.com/web-scraping-a-z) - 3 medium articles
-
-
-
----
-
-## Full product scrape
 ### Product hrefs
 *scrape all items from search result*
 - [x] pull href links for 1 search-result page
@@ -100,18 +155,14 @@ View/preview images
 
 
 
-### Putting it all together
+### large_webscrape
 *To be used later*
-- category_scrape: list of clothing category titles (features)
-	- category_urls: url for each item in category_scrape
-	- product_filter_1sthalf: Product category type, first half of page
-	- pattern_accents_2ndhalf: Product category type, 2nd half of page
-
-
-
-
+- [x] category_scrape: list of clothing category titles (features)
+	- [x] category_urls: url for each item in category_scrape
+	- [x] product_filter_1sthalf: Product category type, first half of page
+	- [x] pattern_accents_2ndhalf: Product category type, 2nd half of page
 - [ ] combine functions within each other *need to use classes*
-	- [ ] watch video on [classes](https://www.youtube.com/watch?v=ZDa-Z5JzLYM)
+	
 ---
 # Notes
 - when jumping between different categories, the "sort by" method changes to "Recently Discounted" by default
@@ -129,15 +180,19 @@ View/preview images
 - Thredup's classes, id, div tags all have unintuitive names. Other websites's labels make much more sense
 - [thredup.com/robots.txt](https://www.thredup.com/robots.txt)
 - Tutorial: [Web Scraping and BeautifulSoup](https://www.dataquest.io/blog/web-scraping-beautifulsoup/) exactly what I'm doing
-
-
+- [ ] Integrate IP addresses [Web scraping with Python](https://medium.com/web-scraping-a-z) - 3 medium articles
+- [ ] 
+## Learning
+- git
+- databases: postgresql + pgadmin
+- documentation
+- python fundamentals: functions, classes and data structures
+- command line
 
 ## Fabrics
 Sources:
 - [4 Fabrics That Are Harming Our Planet + What To Look For Instead](https://www.mindbodygreen.com/0-25104/the-4-most-toxic-fabrics-their-ecofriendly-upgrades.html)
 - [The Most Harmful Fabrics in Fashion (and A Personal Challenge](https://www.jessannkirby.com/the-most-harmful-fabrics-in-fashion-and-a-personal-challenge/)
-- 
-
 - banned fabric keywords: Polyester, Polyamide, Acrylic, No Fabric Content
 - Next level to block: nylon, rayon, viscose
 - Good fabrics: organic cotton, wool, silk, hemp, linen, cupro, ramie, tencel (used only)
@@ -159,37 +214,6 @@ ebay
 poshmark
 The Real Real (luxury)
 Vestiaire Collective (luxury)
-
-## Clothing categories
-*each type of clothing has it's own tags/features*
-	*Ex:*
-	
-Occasion:
-	casual
-	formal
-	work
-	
-Style:
-	A-line
-	Maxi
-	Midi
-
-### Regex for looping through all categories?
-sorted by *newest first*
-
-**All items:** 
-/petite?department_tags=petite&include_petite=true&skip_equivalents=true&sizing_id=750%2C755%2C756%2C765%2C774%2C791%2C799&sort=newest_first&page=1
-
-**Dresses:** *1st page*
-/petite/ **dresses** ? **search_tags=women-dresses&** department_tags=petite&include_petite=true&skip_equivalents=true&sizing_id=750%2C755%2C756%2C765%2C774%2C791%2C799&sort=newest_first&page=1
-
-**Dresses** *2nd page*
-/petite **/dresses** ? **search_tags=women-dresses&** department_tags=petite&include_petite=true&skip_equivalents=true&sizing_id=750%2C755%2C756%2C765%2C774%2C791%2C799&sort=newest_first&page=2
-
-**Tops** *Just do the whole thing:*
-/petite **/tops?search_tags=women-tops&** department_tags=petite&include_petite=true&skip_equivalents=true&sizing_id=750%2C755%2C756%2C765%2C774%2C791%2C799&sort=newest_first&page=1
-
----
 
 
 ## Resources:
@@ -267,7 +291,7 @@ sorted by *newest first*
 - When I switch to Petite, all filters are reset
 - Cannot search by material
 - cannot search by eco-friendly materials either
-- email: not recommendations (based on style and fabrics)
+- email: not recommendations based on style and fabrics
 - Ask for access to API - read the docs
 - read their engineering blog
 - ML to create goody box
@@ -320,7 +344,7 @@ sorted by *newest first*
     - URL for [Petite tops, silk top (style)](https://www.thredup.com/petite/silk-tops?search_tags=women-tops%2Cwomen-tops-silk-tops&department_tags=petite&sizing_id=765%2C755%2C750%2C756&skip_equivalents=true): 146 items
 - within petite clothing, search for 100% ______ (checkbox)
 
-### Why to buy second-hand
+### Why buy second-hand
 
 Medium Article: [Should You Buy Clothes Second Hand To Reduce Your Environmental Impact?](https://medium.com/@tabitha.whiting/should-you-buy-clothes-second-hand-to-reduce-your-environmental-impact-1ef1cabee982)
 
@@ -339,8 +363,54 @@ Links saved in Favorites for "loft romper"
     - thredup
     - poshmark
     - ebay
+    - heroine
     - local thrift stores How to get them online?
+- expand to men's clothing. Ex: grailed
 - include a WHY section
 - If a company has a store (ex: amour vert, reformation, etc.) then try on their clothes and remember their sizes
 - order an item or two from them, then buy the used version online
 - clothing websites should have a "used section" that you can sell back to them" elieen fisher now has this
+
+
+---
+
+## Clothing categories
+*each type of clothing has it's own tags/features*
+	*Ex:*
+	
+Occasion:
+	casual
+	formal
+	work
+	
+Style:
+	A-line
+	Maxi
+	Midi
+
+### Regex for looping through all categories?
+sorted by *newest first*
+
+**All items:** 
+/petite?department_tags=petite&include_petite=true&skip_equivalents=true&sizing_id=750%2C755%2C756%2C765%2C774%2C791%2C799&sort=newest_first&page=1
+
+**Dresses:** *1st page*
+/petite/ **dresses** ? **search_tags=women-dresses&** department_tags=petite&include_petite=true&skip_equivalents=true&sizing_id=750%2C755%2C756%2C765%2C774%2C791%2C799&sort=newest_first&page=1
+
+**Dresses** *2nd page*
+/petite **/dresses** ? **search_tags=women-dresses&** department_tags=petite&include_petite=true&skip_equivalents=true&sizing_id=750%2C755%2C756%2C765%2C774%2C791%2C799&sort=newest_first&page=2
+
+**Tops** *Just do the whole thing:*
+/petite **/tops?search_tags=women-tops&** department_tags=petite&include_petite=true&skip_equivalents=true&sizing_id=750%2C755%2C756%2C765%2C774%2C791%2C799&sort=newest_first&page=1
+
+---
+
+# Thredup_Sort
+
+Thredup is an online consignment store with thousands of options but their filtering system could be better. Due to environmental reasons, I only purchase clothing made of natural materials (wool, cotton, silk, etc.) and avoid polyester and any clothing where the fabric content is unknown.
+
+The following code filters out clothing by removing search results with the words: "Polyester”, “Fabric details not available" and "No Fabric Content". A URL is input as a variable and all results (that don't contain the forbidden words) are opened in a new tab for viewing.
+
+“url” – (line 11) the only input into the file. Take the current URL from the thredup page and replace the current default.
+=======
+
