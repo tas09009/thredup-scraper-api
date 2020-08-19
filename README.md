@@ -1,5 +1,6 @@
 
 
+
 # Thredup Database
 *A webscraper to extract the following clothing information from thredup's website for petite clothing*
 
@@ -36,6 +37,9 @@ Mac:
 Windows:
  
 ## Programs
+=======
+# Basic product scrape
+
 **basic_scrape.py**
 *webscrapes individual product links from a search page (50 per page) and then parses each product link to pull the following information*
 
@@ -367,6 +371,7 @@ Links saved in Favorites for "loft romper"
 - order an item or two from them, then buy the used version online
 - clothing websites should have a "used section" that you can sell back to them" elieen fisher now has this
 
+
 ---
 
 ## Clothing categories
@@ -407,3 +412,5 @@ Thredup is an online consignment store with thousands of options but their filte
 The following code filters out clothing by removing search results with the words: "Polyester”, “Fabric details not available" and "No Fabric Content". A URL is input as a variable and all results (that don't contain the forbidden words) are opened in a new tab for viewing.
 
 “url” – (line 11) the only input into the file. Take the current URL from the thredup page and replace the current default.
+=======
+
