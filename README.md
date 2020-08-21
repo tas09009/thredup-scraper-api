@@ -1,6 +1,5 @@
 
 
-
 # Thredup Database
 *A webscraper to extract the following clothing information from thredup's website for petite clothing*
 
@@ -12,7 +11,6 @@ Materials | fabric content and it's percentage | 95% Rayon, 5% Spandex
 Size | item size |Size S 
 Measurement | measurements depend on item itself | 25.5" Chest, 34.75" Length
 Category_Type | Type of clothing | Dresses
-
 
 An example of what the database looks like (so far):
 ![basic_scrape_table_image](basic_scrape_table_screenshot.png)
@@ -31,15 +29,23 @@ Objective:
 	- second layer of filter for rayon, nylon, etc.
 - sort out clothing specifically by fabrics (wool, linen, etc.)
 
+
+### Addresses issues with Thredup's website
+- limited filters within the "petite" category
+- not able to search by fabrics
+	- linen/cotton combination
+	- 100% wool
+- not able to filter out fabrics
+	- no polyester
+==more issues listed below==
+
 # Installation
+Fork this directory and run the program through the command line. 
 Linux:
 Mac:
 Windows:
  
 ## Programs
-=======
-# Basic product scrape
-
 **basic_scrape.py**
 *webscrapes individual product links from a search page (50 per page) and then parses each product link to pull the following information*
 
@@ -62,6 +68,7 @@ Windows:
 
 ### Software
 - postgresql
+- scrapy-rotating-proxies
 
 
 # Kanban
@@ -70,18 +77,12 @@ Long-term, Short-term, Working, Done
 
 ### To Do *(before scraping all items)*
 
-
 Postgresql database
-
-Add logger
-
-Add bug tracker
 
 Avoid getting blocked
 - [ ] combine code with IP Addresses function (safeguard)
+- [ ] automate the IP Address list itself
 - [ ] or add 1 - 5 second random delay per request
-
-
 
 Track Time
 - [ ] print time stamps for exports. progress bar?
@@ -93,20 +94,37 @@ Track Time
 Readme.md + github
 - [ ] Clean up all notes on this page
 - [ ] Clean up all code (as much as possible)
+- [ ] files -> directories
 - [ ] send both to Github. Notes as README.md page
 - [ ] Approve "little_feature" + "basic_scrape" mergers, in that order
-- [ ] create a kanban board?
+
+
+create a kanban board?
 	- [ ] projects page?
 
 CSV files for tops & bottoms
 
 View/preview images
 
+Add logger
+
+Add bug tracker
+
+requirements.txt file/conda environment
+
+Efficiency
+- [ ] parse a smaller section of a product's page (`ui-container u-flex _36TeFiFjuh5xlahzk4iZeQ`) which contains all elements that I'm looking for (double check): measurements, size, materials, etc.
+	- [ ] only issue is not being able to scrape category_type (not included above)
+	- [ ] 6125 lines of code - parsing entire product_page over and over
+	- [ ] 107 lines of code - parsing just the element above
+- [ ] simplify CSS tags (remove spaces)
+
+
 **General To do:**
 *Need to organize by order*
 - [ ] functions & classes
 - [ ] python library
-- [ ] blog post writup
+- [ ] blog post write-up
 - [ ] database
 - [ ] chrome extension
 - [ ] plan out ML model
@@ -181,7 +199,19 @@ Naming convention
 - [thredup.com/robots.txt](https://www.thredup.com/robots.txt)
 - Tutorial: [Web Scraping and BeautifulSoup](https://www.dataquest.io/blog/web-scraping-beautifulsoup/) exactly what I'm doing
 - [ ] Integrate IP addresses [Web scraping with Python](https://medium.com/web-scraping-a-z) - 3 medium articles
-- [ ] 
+- [ ] [robots.txt](https://www.thredup.com/robots.txt): rules of scraping such as frequency and specific pages
+- [ ] Thredup doesn't have an API, not for Python atleast
+
+
+
+- [ ] where does Viscose fall into place?
+- [ ] Some items sold are using 'recycled polyester' such as this [Eileen Fisher Trenchcoat](https://www.thredup.com/product/women-recycled-polyester-eileen-fisher-black-trenchcoat/80239531?sizing_id=750,755,756,765,774,791,799,778)
+- [ ] how much of the clothing is fast fashion? obviously only in the petite category
+- [ ] Other thredup projects:
+	- [ ] [Thredup](https://github.com/sarc007/Thredup) A project to extract data from the website and do statistical calculations on it Below is the description of the requirement
+	- [ ] [Thredup-Cart-Refresher](https://github.com/Eritz/Thredup-Cart-Refresher) Refreshes items inside the Thredup account's cart
+	- [ ] [WebCrawler-ThredUp](https://github.com/yaisah/WebCrawler-ThredUp) I created this web crawler to scrape data from ThredUp products into a database
+	- [ ] build a seasonal wardrobe with 5 items under $100 or $200? Use Vetta for ideas
 ## Learning
 - git
 - databases: postgresql + pgadmin
@@ -371,7 +401,6 @@ Links saved in Favorites for "loft romper"
 - order an item or two from them, then buy the used version online
 - clothing websites should have a "used section" that you can sell back to them" elieen fisher now has this
 
-
 ---
 
 ## Clothing categories
@@ -411,6 +440,5 @@ Thredup is an online consignment store with thousands of options but their filte
 
 The following code filters out clothing by removing search results with the words: "Polyester”, “Fabric details not available" and "No Fabric Content". A URL is input as a variable and all results (that don't contain the forbidden words) are opened in a new tab for viewing.
 
-“url” – (line 11) the only input into the file. Take the current URL from the thredup page and replace the current default.
-=======
 
+“url” – (line 11) the only input into the file. Take the current URL from the thredup page and replace the current default.

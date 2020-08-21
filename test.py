@@ -8,25 +8,42 @@ import traceback
 # import sys
 # from fake_useragent import UserAgent
 
+url = 'https://www.thredup.com/product/women-rayon-ann-taylor-loft-maroon-casual-dress/80298374?sizing_id=755,765,778,750,756,774,791,799'
 
-url = 'https://www.thredup.com/product/women-cotton-forever-21-ivory-casual-dress/76517476'
+
+
+# Main page items
+regular = 'https://www.thredup.com/products/petite?department_tags=petite&sort=Recently%20Discounted'
+
+incognito = 'https://www.thredup.com/petite?department_tags=petite&sizing_id=755%2C765%2C778%2C750%2C756%2C774%2C791%2C799&skip_equivalents=true&sort=newest_first'
+
+incognito_search = 'https://www.thredup.com/petite?department_tags=petite&sizing_id=755%2C765%2C778%2C750%2C756%2C774%2C791%2C799&skip_equivalents=true'
+
+incog_newest_first = 'https://www.thredup.com/petite?department_tags=petite&sizing_id=755%2C765%2C778%2C750%2C756%2C774%2C791%2C799&skip_equivalents=true&sort=newest_first&page=1'
+
 
 response = requests.get(url)
 product_page_soupified = BeautifulSoup(response.text, 'html.parser')
 
-brand = []
-brand_search = product_page_soupified.findAll('div', {'class': 'u-flex _20pksgdpcQ2E8r4MYcsBXl'})
-for i in brand_search:
-    product = i.find('a', {'class': '_32zNmjMSfxcoBWGGlzPobp'}).getText()
-    brand.append(product)
-
-print(brand)
 
 
-# <div class="u-flex _20pksgdpcQ2E8r4MYcsBXl"><div><a class="_32zNmjMSfxcoBWGGlzPobp" 
+price = []
+price_search = product_page_soupified.findAll('div', {'class':'primary-info-row price-current-previous'})
+for i in price_search:
+    product_price = i.find('span', {'class': 'price'}).getText()
+    price.append(product_price)
+    print(product_price)
+print(price)
 
 
-# title="Forever 21" href="/women/forever-21?department_tags=women&amp;brand_name_tags=Forever%2021">Forever 21</a> <span class="_2gP239lLt_bs4iB60hEm85">Casual Dress</span></div><div class="_1xsIebREJUeQxUjKSqd6e9">Size S</div></div>
 
 
-# <a class="_32zNmjMSfxcoBWGGlzPobp" title="Forever 21" href="/women/forever-21?department_tags=women&amp;brand_name_tags=Forever%2021">Forever 21</a>
+'''
+category_type = []
+product_type_search = product_page_soupified.findAll('nav', {'class': '_3p7XtL0LlyGSi8UgI6EU3j _12-L0I76mLCOu9b4N_SCPU'})
+for i in product_type_search:
+    product = i.find('a', {'class': 'spot-grey-7 JdCj53-vTvU5pLpj6NlFo'}).getText()
+    category_type.append(product)
+    print(product)
+print(category_type)
+'''

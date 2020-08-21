@@ -2,26 +2,12 @@ import requests, re
 from bs4 import BeautifulSoup
 from itertools import cycle
 import traceback
+import scrapy-rotating-proxies
 # import pandas as pd
 # import timeit
 # from href_list import href_list_1
 # import sys
 # from fake_useragent import UserAgent
-
-
-# basic_scrape = {
-#      'Link': ['heythere', 'test'],
-#      'Image_link': ['image_list', 'test'],
-#      'Materials': ['product_list_major', 'test'],
-#      'Size': ['size', 'test'],
-#      'Measurements': ['measurements', 'test'],
-#      'Category_List': ['category_list', 'test']
-# }
-
-# df = pd.DataFrame.from_dict(basic_scrape)
-
-
-# df.to_csv(r'/home/taniya/Projects/Thredup-database/basic_scrape.csv', index=False, header=True)
 
 
 
@@ -57,7 +43,7 @@ def proxies_pool():
     return proxies
 # print(proxies_pool())
 
-
+ROTATING_PROXY_LIST = proxies_pool()
 
 
 # Source: https://www.scrapehero.com/how-to-rotate-proxies-and-ip-addresses-using-python-3/
