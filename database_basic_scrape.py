@@ -23,12 +23,15 @@ Exclude One size
 
 
 # url needs to be sorted by newest first
-url = 'https://www.thredup.com/petite?department_tags=petite&sizing_id=755%2C765%2C778%2C750%2C756%2C774%2C791%2C799&skip_equivalents=true&sort=newest_first&page='
 
+url = 'https://www.thredup.com/petite?department_tags=petite&sizing_id=750%2C755%2C756%2C765%2C774%2C791%2C799%2C778&include_petite=true&skip_equivalents=true&sort=newest_first&page='
+
+
+added_at_end = '&page=2'
 
 # Lists to store scraped data
 hrefs = []
-images = []
+image = []
 materials = []
 size = [] # ['Size S '] removes the word 'petite' as well, not needed
 measurements = [] # ['24" Length']
@@ -62,7 +65,7 @@ url_front = 'https://www.thredup.com'
 for a in product_list:
     hrefs.append(url_front + a)
 
-
+hrefs = hrefs[0:3]
 for link in hrefs:
     response = requests.get(link)
     product_page_soupified = BeautifulSoup(response.text, 'html.parser')
@@ -71,7 +74,7 @@ for link in hrefs:
     image_search = product_page_soupified.findAll('div', {'class': '_30o7eOhD-KenCXDTlPWxw'})
     for i in image_search:
         product = i.find('a', {'class': '_17adkz6zswDjAoZ8PhDmPr'}).get('href')
-        images.append(product)
+        image.append(product)
 
 
     product_materials = []
@@ -102,15 +105,22 @@ for link in hrefs:
         category_type.append(product)
 
 
-    price_search = product_page_soupified.findAll('section', {'class': 'ui-container u-flex _36TeFiFjuh5xlahzk4iZeQ'})
+    price_search = product_page_soupified.findAll('section', {'class': '_36TeFiFjuh5xlahzk4iZeQ'})
     for i in price_search:
-        product = i.find('span', {'class': 'RFcwwL7_eda8sdWkyafAr spot-coral price'}).getText()
-        price.append(product)
+        product_price = i.find('span', {'class': 'RFcwwL7_eda8sdWkyafAr'}).getText()
+        price.append(product_price)
+
+
+    # price_search = product_page_soupified.findAll('section', {'class': 'ui-container u-flex _36TeFiFjuh5xlahzk4iZeQ'})
+    # for i in price_search:
+    #     product_price = i.find('span', {'class': 'RFcwwL7_eda8sdWkyafAr spot-coral price'}).getText()
+    #     price.append(product_price)
+        
 
 
     brand_search = product_page_soupified.findAll('div', {'class': 'u-flex _20pksgdpcQ2E8r4MYcsBXl'})
     for i in brand_search:
-        product = i.find('a', {'class': '_32zNmjMSfxcoBWGGlzPobp'}).getText()
+        product = i.find('a', {'class': '_32zNmjMSfxcoBWGGlzPobp'}).get('title')
         brand.append(product)
 
     # Show progress of completed items    
@@ -118,9 +128,20 @@ for link in hrefs:
 
 
 
+print(hrefs)
+print(len(hrefs))
+print(len(image))
+print(len(materials))
+print(len(size)) 
+print(len(measurements))
+print(len(category_type))
+print(len(price))
+print(len(brand))
+
+
 basic_scrape = pd.DataFrame({
      'Link': hrefs,
-     'Image_Link': images,
+     'Image_Link': image,
      'Materials': materials,
      'Size': size,
      'Measurements': measurements,
@@ -130,6 +151,5 @@ basic_scrape = pd.DataFrame({
 
 # df = pd.DataFrame.from_dict(basic_scrape)
 
-basic_scrape.to_csv(r'/home/taniya/Projects/Thredup-database/basic_scrape.csv', index=False, header=True)
-
+basic_scrape.to_csv(r'/home/taniya/Projects/Thredup-database/basic_scrape_test1.csv', index=False, header=True)
 
