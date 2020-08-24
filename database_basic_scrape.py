@@ -24,7 +24,9 @@ Exclude One size
 
 # url needs to be sorted by newest first
 
-url = 'https://www.thredup.com/petite?department_tags=petite&sizing_id=750%2C755%2C756%2C765%2C774%2C791%2C799%2C778&include_petite=true&skip_equivalents=true&sort=newest_first&page='
+url2 = 'https://www.thredup.com/petite?department_tags=petite&sizing_id=750%2C755%2C756%2C765%2C774%2C791%2C799%2C778&include_petite=true&skip_equivalents=true&sort=newest_first&page='
+
+url = 'https://www.thredup.com/petite/dresses?search_tags=women-dresses&department_tags=petite&include_petite=true&skip_equivalents=true&sizing_id=750%2C755%2C756%2C765%2C791%2C799%2C774&sort=newest_first&page=1'
 
 
 added_at_end = '&page=2'
@@ -52,6 +54,7 @@ for page_number in range(1,2): # Everytime range increases, items increase by 50
     # Parse HTML and pull all href links
     response = requests.get(url_page)
     main_page_items = BeautifulSoup(response.text, 'html.parser')
+    # main_page_items = response.css(div.grid)
 
     grid_products = main_page_items.findAll('div', {'class': 'uiUj-TxKXzmIOHZu6poxM grid-item'})
     for i in grid_products:
@@ -61,15 +64,26 @@ for page_number in range(1,2): # Everytime range increases, items increase by 50
 # ------------------------------------------------------------------------------------
 # Code below will need to be indented to accomodate multiple page searches
 
-url_front = 'https://www.thredup.com'
-for a in product_list:
-    hrefs.append(url_front + a)
+    url_front = 'https://www.thredup.com'
+    for a in product_list:
+        hrefs.append(url_front + a)
+    # This marks the end of the page search. Page 2, etc. now begins
 
-hrefs = hrefs[0:3]
+
+# hrefs = hrefs[0:3]
 for link in hrefs:
     response = requests.get(link)
     product_page_soupified = BeautifulSoup(response.text, 'html.parser')
-    
+
+
+    product_type = []
+    product_type_search = product_page_soupified.findAll('nav', {'class': '_3p7XtL0LlyGSi8UgI6EU3j _12-L0I76mLCOu9b4N_SCPU'})
+    for i in product_type_search:
+        product = i.find('a', {'class': 'spot-grey-7 JdCj53-vTvU5pLpj6NlFo'}).getText()
+        category_type.append(product)
+
+# ------------------------------------------------------------------------------------
+    # product_page_soupified = response.css(section._36TeFiFjuh5xlahzk4iZeQ)
 
     image_search = product_page_soupified.findAll('div', {'class': '_30o7eOhD-KenCXDTlPWxw'})
     for i in image_search:
@@ -96,13 +110,6 @@ for link in hrefs:
     item = product_item_measurement_size[1]
     size.append(str(item[0])[4:-13])
     measurements.append(str(item[1])[4:-5])
-    
-
-    product_type = []
-    product_type_search = product_page_soupified.findAll('nav', {'class': '_3p7XtL0LlyGSi8UgI6EU3j _12-L0I76mLCOu9b4N_SCPU'})
-    for i in product_type_search:
-        product = i.find('a', {'class': 'spot-grey-7 JdCj53-vTvU5pLpj6NlFo'}).getText()
-        category_type.append(product)
 
 
     price_search = product_page_soupified.findAll('section', {'class': '_36TeFiFjuh5xlahzk4iZeQ'})
@@ -151,5 +158,5 @@ basic_scrape = pd.DataFrame({
 
 # df = pd.DataFrame.from_dict(basic_scrape)
 
-basic_scrape.to_csv(r'/home/taniya/Projects/Thredup-database/basic_scrape_test1.csv', index=False, header=True)
+basic_scrape.to_csv(r'/home/taniya/Projects/Thredup-database/basic_scrape_test_dresses.csv', index=False, header=True)
 

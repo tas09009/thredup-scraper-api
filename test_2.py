@@ -1,13 +1,10 @@
-<!---KANBAN
-# To Do
-- Eat healthy food
-- Exercise regularly
-- Learn sign language
 
-# In Progress
-- Drink too much
+try:
+    f = open('list_of_links.txt')
+    var = bad_var
+except FileNotFoundError as e:
+    print(e)
+except Exception as e:
+    print(e)
 
-# Done
-- Regret my decisions
-- Age too quickly
-KANBAN--->
+

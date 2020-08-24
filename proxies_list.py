@@ -2,7 +2,8 @@ import requests, re
 from bs4 import BeautifulSoup
 from itertools import cycle
 import traceback
-import scrapy-rotating-proxies
+import random
+# import scrapy-rotating-proxies
 # import pandas as pd
 # import timeit
 # from href_list import href_list_1
@@ -43,7 +44,24 @@ def proxies_pool():
     return proxies
 # print(proxies_pool())
 
-ROTATING_PROXY_LIST = proxies_pool()
+
+
+
+
+
+
+
+
+
+
+# DOWNLOADER_MIDDLEWARES = {
+#     # ...
+#     'rotating_proxies.middlewares.RotatingProxyMiddleware': 610,
+#     'rotating_proxies.middlewares.BanDetectionMiddleware': 620,
+#     # ...
+# }
+
+# ROTATING_PROXY_LIST = proxies_pool()
 
 
 # Source: https://www.scrapehero.com/how-to-rotate-proxies-and-ip-addresses-using-python-3/
@@ -67,3 +85,37 @@ for i in range(1,11):
 
 
 
+def get_free_proxies():
+    url = "https://free-proxy-list.net/"
+    # get the HTTP response and construct soup object
+    soup = BeautifulSoup(requests.get(url).content, "html.parser")
+    proxies = []
+    for row in soup.find("table", attrs={"id": "proxylisttable"}).find_all("tr")[1:]:
+        tds = row.find_all("td")
+        try:
+            ip = tds[0].text.strip()
+            port = tds[1].text.strip()
+            host = f"{ip}:{port}"
+            proxies.append(host)
+        except IndexError:
+            continue
+    return proxies
+
+proxies = get_free_proxies()
+
+
+def get_session(proxies):
+    # construct an HTTP session
+    session = requests.Session()
+    # choose one random proxy
+    proxy = random.choice(proxies)
+    session.proxies = {"http": proxy, "https": proxy}
+    return session
+
+
+for i in range(5):
+    s = get_session(proxies)
+    try:
+        print("Request page with IP:", s.get("http://icanhazip.com", timeout=1.5).text.strip())
+    except Exception as e:
+        continue
