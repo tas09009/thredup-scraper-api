@@ -1,5 +1,3 @@
-
-
 # Thredup Database
 *A webscraper to extract the following clothing information from thredup's website for petite clothing*
 
@@ -77,6 +75,16 @@ Long-term, Short-term, Working, Done
 
 ### To Do *(before scraping all items)*
 
+Write each row rather than adding all data in the end
+
+Add logger
+
+sleep timer between 10 - 20 seconds per request
+
+Add bug tracker
+
+Change name to 'Thredup API'
+
 Postgresql database
 
 Avoid getting blocked
@@ -102,13 +110,10 @@ Readme.md + github
 create a kanban board?
 	- [ ] projects page?
 
-CSV files for tops & bottoms
 
 View/preview images
 
-Add logger
 
-Add bug tracker
 
 requirements.txt file/conda environment
 
@@ -131,16 +136,9 @@ Efficiency
 - [ ] code efficiency
 	- [ ] Use lambda functions (map, filter, reduce) to simplify code?
 
-
-
-
-
-
-
-
-
-
-
+### After scraping all items
+contents of rayon, nylon and viscose cannot be higher than 50%
+separate function that eliminates these materials completely
 
 ---
 
@@ -172,7 +170,6 @@ Naming convention
 			- [x] list of categories, for loop to use cateogry within a url
 
 
-
 ### large_webscrape
 *To be used later*
 - [x] category_scrape: list of clothing category titles (features)
@@ -201,6 +198,7 @@ Naming convention
 - [ ] Integrate IP addresses [Web scraping with Python](https://medium.com/web-scraping-a-z) - 3 medium articles
 - [ ] [robots.txt](https://www.thredup.com/robots.txt): rules of scraping such as frequency and specific pages
 - [ ] Thredup doesn't have an API, not for Python atleast
+- [robots.txt](https://www.thredup.com/robots.txt) doesn't seem to mind scraping petite items. No crawl rate mentioned either
 
 
 
@@ -433,12 +431,3 @@ sorted by *newest first*
 /petite **/tops?search_tags=women-tops&** department_tags=petite&include_petite=true&skip_equivalents=true&sizing_id=750%2C755%2C756%2C765%2C774%2C791%2C799&sort=newest_first&page=1
 
 ---
-
-# Thredup_Sort
-
-Thredup is an online consignment store with thousands of options but their filtering system could be better. Due to environmental reasons, I only purchase clothing made of natural materials (wool, cotton, silk, etc.) and avoid polyester and any clothing where the fabric content is unknown.
-
-The following code filters out clothing by removing search results with the words: "Polyester”, “Fabric details not available" and "No Fabric Content". A URL is input as a variable and all results (that don't contain the forbidden words) are opened in a new tab for viewing.
-
-
-“url” – (line 11) the only input into the file. Take the current URL from the thredup page and replace the current default.
