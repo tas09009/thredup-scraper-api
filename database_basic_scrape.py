@@ -1,6 +1,7 @@
 import requests, re
 from bs4 import BeautifulSoup
 import pandas as pd
+from proxies_list import proxies_pool
 
 # ------------------------------------------------------------------------------------
 
@@ -41,6 +42,10 @@ category_type = [] # Tops, bottoms
 price = []
 brand = []
 
+
+proxies = proxies_pool()
+
+
 # ------------------------------------------------------------------------------------
 '''
 Extract product link for each item on page
@@ -52,7 +57,7 @@ for page_number in range(1,2): # Everytime range increases, items increase by 50
     url_page = ((url) + str(page_number))
 
     # Parse HTML and pull all href links
-    response = requests.get(url_page)
+    response = requests.get(url_page, proxies=proxies)
     main_page_items = BeautifulSoup(response.text, 'html.parser')
     # main_page_items = response.css(div.grid)
 
@@ -70,9 +75,9 @@ for page_number in range(1,2): # Everytime range increases, items increase by 50
     # This marks the end of the page search. Page 2, etc. now begins
 
 
-# hrefs = hrefs[0:3]
+hrefs = hrefs[0:3]
 for link in hrefs:
-    response = requests.get(link)
+    response = requests.get(link, proxies=proxies)
     product_page_soupified = BeautifulSoup(response.text, 'html.parser')
 
 
