@@ -2,48 +2,68 @@ import requests, re
 from bs4 import BeautifulSoup
 from itertools import cycle
 import traceback
-# import pandas as pd
-# import timeit
-# from href_list import href_list_1
-# import sys
-# from fake_useragent import UserAgent
+import random
 
-url = 'https://www.thredup.com/product/women-rayon-ann-taylor-loft-maroon-casual-dress/80298374?sizing_id=755,765,778,750,756,774,791,799'
-
-
-
-# Main page items
-regular = 'https://www.thredup.com/products/petite?department_tags=petite&sort=Recently%20Discounted'
-
-incognito = 'https://www.thredup.com/petite?department_tags=petite&sizing_id=755%2C765%2C778%2C750%2C756%2C774%2C791%2C799&skip_equivalents=true&sort=newest_first'
-
-incognito_search = 'https://www.thredup.com/petite?department_tags=petite&sizing_id=755%2C765%2C778%2C750%2C756%2C774%2C791%2C799&skip_equivalents=true'
-
-incog_newest_first = 'https://www.thredup.com/petite?department_tags=petite&sizing_id=755%2C765%2C778%2C750%2C756%2C774%2C791%2C799&skip_equivalents=true&sort=newest_first&page=1'
-
-
-response = requests.get(url)
-product_page_soupified = BeautifulSoup(response.text, 'html.parser')
+def proxies_pool():
+    url = 'https://www.sslproxies.org/'
+    
+    # Retrieve the site's page. The 'with'(Python closure) is used here in order to automatically close the session when done
+    with requests.Session() as res:
+        proxies_page = res.get(url)
+        
+    # Create a BeutifulSoup object and find the table element which consists of all proxies
+    soup = BeautifulSoup(proxies_page.content, 'html.parser')
+    proxies_table = soup.find(id='proxylisttable')
+  
+    # Go through all rows in the proxies table and store them in the right format (IP:port) in our proxies list
+    proxies = []
+    for row in proxies_table.tbody.find_all('tr'):
+        proxies.append('{}:{}'.format(row.find_all('td')[0].string, row.find_all('td')[1].string))
+    return proxies
 
 
+proxies = proxies_pool()
 
-price = []
-price_search = product_page_soupified.findAll('div', {'class':'primary-info-row price-current-previous'})
-for i in price_search:
-    product_price = i.find('span', {'class': 'price'}).getText()
-    price.append(product_price)
-    print(product_price)
-print(price)
+
 
 
 
 
 '''
-category_type = []
-product_type_search = product_page_soupified.findAll('nav', {'class': '_3p7XtL0LlyGSi8UgI6EU3j _12-L0I76mLCOu9b4N_SCPU'})
-for i in product_type_search:
-    product = i.find('a', {'class': 'spot-grey-7 JdCj53-vTvU5pLpj6NlFo'}).getText()
-    category_type.append(product)
-    print(product)
-print(category_type)
+def get_free_proxies():
+    url = "https://free-proxy-list.net/"
+    # get the HTTP response and construct soup object
+    soup = bs(requests.get(url).content, "html.parser")
+    proxies = []
+    for row in soup.find("table", attrs={"id": "proxylisttable"}).find_all("tr")[1:]:
+        tds = row.find_all("td")
+        try:
+            ip = tds[0].text.strip()
+            port = tds[1].text.strip()
+            host = f"{ip}:{port}"
+            proxies.append(host)
+        except IndexError:
+            continue
+    return proxies
+
 '''
+
+
+def get_session(proxies):
+    # construct an HTTP session
+    session = requests.Session()
+    # choose one random proxy
+    proxy = random.choice(proxies)
+    session.proxies = {"http": proxy, "https": proxy}
+    return session
+
+
+# for i in range(5):
+#     s = get_session(proxies)
+#     try:
+#         print("Request page with IP:", s.get("http://icanhazip.com", timeout=2).text.strip())
+#     except Exception as e:
+#         continue
+
+test = get_session('67.84.75.35')
+print("Request page with IP:", test.get("http://icanhazip.com", timeout=2).text.strip())

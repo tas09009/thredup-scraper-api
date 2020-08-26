@@ -1,7 +1,7 @@
 import requests, re
 from bs4 import BeautifulSoup
 import pandas as pd
-from proxies_list import proxies_pool
+# from proxies_list import proxies_pool
 
 # ------------------------------------------------------------------------------------
 
@@ -25,12 +25,10 @@ Exclude One size
 
 # url needs to be sorted by newest first
 
-url2 = 'https://www.thredup.com/petite?department_tags=petite&sizing_id=750%2C755%2C756%2C765%2C774%2C791%2C799%2C778&include_petite=true&skip_equivalents=true&sort=newest_first&page='
+url_original = 'https://www.thredup.com/petite/dresses?search_tags=women-dresses&department_tags=petite&include_petite=true&skip_equivalents=true&sizing_id=750%2C755%2C756%2C765%2C791%2C799%2C774&sort=newest_first'
+url = url_original + '&page='
 
-url = 'https://www.thredup.com/petite/dresses?search_tags=women-dresses&department_tags=petite&include_petite=true&skip_equivalents=true&sizing_id=750%2C755%2C756%2C765%2C791%2C799%2C774&sort=newest_first&page=1'
 
-
-added_at_end = '&page=2'
 
 # Lists to store scraped data
 hrefs = []
@@ -41,9 +39,6 @@ measurements = [] # ['24" Length']
 category_type = [] # Tops, bottoms
 price = []
 brand = []
-
-
-proxies = proxies_pool()
 
 
 # ------------------------------------------------------------------------------------
@@ -57,7 +52,7 @@ for page_number in range(1,2): # Everytime range increases, items increase by 50
     url_page = ((url) + str(page_number))
 
     # Parse HTML and pull all href links
-    response = requests.get(url_page, proxies=proxies)
+    response = requests.get(url_page)
     main_page_items = BeautifulSoup(response.text, 'html.parser')
     # main_page_items = response.css(div.grid)
 
@@ -75,9 +70,9 @@ for page_number in range(1,2): # Everytime range increases, items increase by 50
     # This marks the end of the page search. Page 2, etc. now begins
 
 
-hrefs = hrefs[0:3]
+hrefs = hrefs[0:1]
 for link in hrefs:
-    response = requests.get(link, proxies=proxies)
+    response = requests.get(link)
     product_page_soupified = BeautifulSoup(response.text, 'html.parser')
 
 
@@ -87,9 +82,7 @@ for link in hrefs:
         product = i.find('a', {'class': 'spot-grey-7 JdCj53-vTvU5pLpj6NlFo'}).getText()
         category_type.append(product)
 
-# ------------------------------------------------------------------------------------
-    # product_page_soupified = response.css(section._36TeFiFjuh5xlahzk4iZeQ)
-
+  
     image_search = product_page_soupified.findAll('div', {'class': '_30o7eOhD-KenCXDTlPWxw'})
     for i in image_search:
         product = i.find('a', {'class': '_17adkz6zswDjAoZ8PhDmPr'}).get('href')
@@ -120,13 +113,10 @@ for link in hrefs:
     price_search = product_page_soupified.findAll('section', {'class': '_36TeFiFjuh5xlahzk4iZeQ'})
     for i in price_search:
         product_price = i.find('span', {'class': 'RFcwwL7_eda8sdWkyafAr'}).getText()
-        price.append(product_price)
+        # product_price_int = int(product_price[1:])
+        price.append(float(product_price[1:]))
 
 
-    # price_search = product_page_soupified.findAll('section', {'class': 'ui-container u-flex _36TeFiFjuh5xlahzk4iZeQ'})
-    # for i in price_search:
-    #     product_price = i.find('span', {'class': 'RFcwwL7_eda8sdWkyafAr spot-coral price'}).getText()
-    #     price.append(product_price)
         
 
 
@@ -140,15 +130,15 @@ for link in hrefs:
 
 
 
-print(hrefs)
-print(len(hrefs))
-print(len(image))
-print(len(materials))
-print(len(size)) 
-print(len(measurements))
-print(len(category_type))
-print(len(price))
-print(len(brand))
+# print(hrefs)
+# print(len(hrefs))
+# print(len(image))
+# print(len(materials))
+# print(len(size)) 
+# print(len(measurements))
+# print(len(category_type))
+# print(len(price))
+# print(len(brand))
 
 
 basic_scrape = pd.DataFrame({
@@ -163,5 +153,5 @@ basic_scrape = pd.DataFrame({
 
 # df = pd.DataFrame.from_dict(basic_scrape)
 
-basic_scrape.to_csv(r'/home/taniya/Projects/Thredup-database/basic_scrape_test_dresses.csv', index=False, header=True)
+basic_scrape.to_csv(r'/home/taniya/Projects/thredup_database_bs4/basic_scrape_test3.csv', index=False, header=True)
 
