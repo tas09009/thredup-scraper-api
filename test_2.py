@@ -1,18 +1,7 @@
-import requests 
-from pprint import pprint
+import requests, re, time, random, csv
+from bs4 import BeautifulSoup
+import pandas as pd
+from progressbar import ProgressBar
+from database_basic_scrape import basic_scrape
 
-
-
-try:
-    f = open('list_of_links.txt')
-    if f.name == 'list_of_links.txt':
-        raise Exception
-except FileNotFoundError as standard:
-    print(standard)
-except Exception as standard:
-    print("Error, don't open")
-else:
-    print(f.read())
-    f.close
-finally:
-    print('Executing Finally...')
+basic_scrape.to_csv(r'/home/taniya/Projects/thredup_database_bs4/basic_scrape_tops.csv', index=False, header=True)
