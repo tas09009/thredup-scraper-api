@@ -29,8 +29,8 @@ Exclude One size
 
 # url needs to be sorted by newest first
 
-url_original = 'https://www.thredup.com/petite/outerwear?search_tags=women-outerwear&department_tags=petite&skip_equivalents=true&sizing_id=765%2C756%2C774&sort=price_low_high&page=1'
-url = url_original[:-1] #+ '&page='
+url_original = 'https://www.thredup.com/petite/sweaters?search_tags=women-sweaters&department_tags=petite&skip_equivalents=true&sizing_id=765%2C756%2C774&sort=price_low_high'
+url = url_original + '&page='
 
 
 # csv_file = open('basic_scrape_test4.csv', 'w')
@@ -48,7 +48,7 @@ Extract product link for each item on page
 
 
 product_list = []
-for page_number in range(1,7): # Everytime range increases, items increase by 50. Ordered by "Newest first"
+for page_number in range(1,5): # Everytime range increases, items increase by 50. Ordered by "Newest first"
     url_page = ((url) + str(page_number))
 
     # Parse HTML and pull all href links
@@ -184,5 +184,5 @@ for page_number in range(1,7): # Everytime range increases, items increase by 50
 
         # df = pd.DataFrame.from_dict(basic_scrape)
 
-        basic_scrape.to_csv(r'/home/taniya/Projects/thredup-scraper-api/datasets/test_runs/coats_jackets{page_number}.csv'.format(page_number=page_number), index=False, header=True)
+        basic_scrape.to_csv(r'/home/taniya/Projects/thredup-scraper-api/datasets/test_runs/test_shorts{page_number}.csv'.format(page_number=page_number), index=False, header=True)
 

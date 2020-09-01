@@ -5,12 +5,7 @@ import traceback
 import random
 
 
+url_original = 'https://www.thredup.com/petite/outerwear?search_tags=women-outerwear&department_tags=petite&skip_equivalents=true&sizing_id=765%2C756%2C774&sort=price_low_high&page=1'
+url = url_original[:-1] #+ '&page='
 
-from alive_progress import alive_bar
-from alive_progress import bouncing_spinner_factory
-# items = range(1000000)                  # retrieve your set of items
-# with alive_bar(len(items)) as bar:   # declare your expected total
-#     for item in items:               # iterate as usual
-#         # process each item
-#         bar()                        # call after consuming one item
-bouncing_spinner_factory(3,5)
+print(url)

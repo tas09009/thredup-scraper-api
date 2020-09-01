@@ -1,8 +1,15 @@
 import requests, re, time, random
 from bs4 import BeautifulSoup
+import pandas as pd
+from database_basic_scrape import hrefs
+
+'''
+Issue: Circular python code. See database_basic_scrape_circular.py for the other dependency
+'''
+
 
 # Lists to store scraped data
-hrefs = []
+hrefs = hrefs
 image = []
 description = []
 materials = []
@@ -12,7 +19,7 @@ category_type = [] # Tops, bottoms
 price = []
 brand = []
 
-def href_scrape(hrefs):
+def href_scrape_func(hrefs):
     '''
     Takes in an input of a list of hrefs. For each link in href, extract:
 
@@ -27,6 +34,7 @@ def href_scrape(hrefs):
 
     Also added a 5-10 second delay per scrape.
     '''
+    from database_basic_scrape import href_pull
     for link in hrefs:
         response = requests.get(link)
         product_page_soupified = BeautifulSoup(response.text, 'html.parser')
@@ -93,3 +101,14 @@ def href_scrape(hrefs):
 
         # incase want to write to cvs per row:
         # csv_writer.writerow([hrefs, category_type, image, description, materials, size, measurements, price, brand])
+
+    basic_scrape = pd.DataFrame({
+        'Link': hrefs,
+        'Category_Type': category_type,
+        'Image_Link': image,
+        'Description': description,
+        'Materials': materials,
+        'Size': size,
+        'Measurements': measurements,
+        'Price': price,
+        'Brand': brand})
