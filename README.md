@@ -15,7 +15,7 @@ Brand | name brand | Tommy Hilfiger
 
 
 An example of what the database looks like (so far):
-![basic_scrape_table_image](basic_scrape_table_screenshot.png)
+![basic_scrape_table_image](media/thredup_table.png)
 
 
 # Purpose
