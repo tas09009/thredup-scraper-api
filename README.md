@@ -3,12 +3,16 @@
 
 Information to be extracted | Function | Example
 ----|-----|-----
-Link | url of each item on a page | [Item_Link](https://www.thredup.com/product/women-rayon-old-navy-green-casual-dress/79862094?sizing_id=755,765,778,750,756,774,791,799)
-Image_Link | front picture of item | [Picture_Link](https://cf-assets-thredup.thredup.com/assets/213871306/retina.jpg)
-Materials | fabric content and it's percentage | 95% Rayon, 5% Spandex
-Size | item size |Size S 
-Measurement | measurements depend on item itself | 25.5" Chest, 34.75" Length
-Category_Type | Type of clothing | Dresses
+Link | url of each item on a page | [Item_Link](https://www.thredup.com/product/women-cotton-tommy-hilfiger-blue-pullover-sweater/58862377?sizing_id=750,755,756,765,791,799,774)
+Category Type | clothing type | Tops
+Image_Link | front picture of item | [Picture_Link](https://cf-assets-thredup.thredup.com/assets/174145145/retina.jpg)
+Description | distinct features | 'Crew neckline', 'Color blocked detail', 'Long sleeve', 'Blue'
+Materials | fabric content and it's percentage | 100% Cotton
+Size | item size | Size XS  
+Measurement | measurements depend on item itself | 28" Chest, 22" Length
+Price | price | 3.99
+Brand | name brand | Tommy Hilfiger
+
 
 An example of what the database looks like (so far):
 ![basic_scrape_table_image](basic_scrape_table_screenshot.png)
@@ -57,65 +61,30 @@ Windows:
 
 ## Requirements
 ### Modules
-
 - requests
 - re
+- time
+- random
 - beautifulsoup
 - pandas
 - numpy
+- alive_progress
 
-### Software
-- postgresql
-- scrapy-rotating-proxies
-
+# How to use
 
 # Kanban
-To do, Working, Done
-Long-term, Short-term, Working, Done
-
-### To Do *(before scraping all items)*
-
-Write each row rather than adding all data in the end
-
-Add logger
-
-sleep timer between 10 - 20 seconds per request
-
-Add bug tracker
-
-Change name to 'Thredup API'
-
-Postgresql database
-
-Avoid getting blocked
-- [ ] combine code with IP Addresses function (safeguard)
-- [ ] automate the IP Address list itself
-- [ ] or add 1 - 5 second random delay per request
-
-Track Time
-- [ ] print time stamps for exports. progress bar?
-- [ ] module: timeit - time each step of program. *tricky since everything is in a forloop*
-	- [ ] send time outputs to a log file
-	- [ ] speed up program and compare log files #Future
-- [ ] progress bar of extracting the 30k+ items 
-
-Readme.md + github
-- [ ] Clean up all notes on this page
-- [ ] Clean up all code (as much as possible)
-- [ ] files -> directories
-- [ ] send both to Github. Notes as README.md page
-- [ ] Approve "little_feature" + "basic_scrape" mergers, in that order
+## To do
 
 
-create a kanban board?
-	- [ ] projects page?
-
-
-View/preview images
-
-
-
-requirements.txt file/conda environment
+Features
+- [ ] bug tracker
+- [ ] logger
+- [ ] speed up program and compare log files
+- [ ] functionize everything in database_basic_scrape
+- [ ] View/preview images
+- [ ] requirements.txt file + conda environment
+- [ ] python library to be used outside of this environment
+- [ ] blog post write-up
 
 Efficiency
 - [ ] parse a smaller section of a product's page (`ui-container u-flex _36TeFiFjuh5xlahzk4iZeQ`) which contains all elements that I'm looking for (double check): measurements, size, materials, etc.
@@ -124,37 +93,62 @@ Efficiency
 	- [ ] 107 lines of code - parsing just the element above
 - [ ] simplify CSS tags (remove spaces)
 
+### Inputs from user
+- [ ] sys.argv:
+	- [ ] url
+	- [ ] # of pages
+		- [ ] All pages: program needs to know how many pages the search has + 1 (to be able to scrape until the last page)
+	- [ ] file name and location
 
-**General To do:**
-*Need to organize by order*
-- [ ] functions & classes
-- [ ] python library
-- [ ] blog post write-up
-- [ ] database
-- [ ] chrome extension
-- [ ] plan out ML model
-- [ ] code efficiency
-	- [ ] Use lambda functions (map, filter, reduce) to simplify code?
 
-### After scraping all items
-contents of rayon, nylon and viscose cannot be higher than 50%
-separate function that eliminates these materials completely
 
----
+## In Progress
+### Random
+- [ ] scrape 300 products/category. Ex: 300 tops, 300 shorts etc. based on season
+	- [ ] ~~summer~~ *summer is now over :(*
+	- [ ] fall wardrobe: *what percentage can be used for the following, after filtration indifferent to style. What about post style?*
+		- [x] sweaters
+		- [x] jacket
+		- [x] long-sleeve shirt
+		- [x] long-sleeve dress. Can be wool
+		- [x] pants
+- [ ] create a kanban board on github
 
-# Done
-## Full product scrape
+### Readme.md + github
+- [ ] Clean up all notes on this page
+- [x] Clean up all code (as much as possible)
+- [x] files -> directories
 
-Naming convention
+### Postgresql database: all data from csv files combined into one
+
+
+
+## Done
+### Webscrape 1st edition
+- [x] basic database scrape - FINALLY DONE
+
+
+
+### Random
+- [x] csv file
+- [x] remove all urls except for the main one
+- [x] Change name to 'Thredup API'
+- [x] convert price to numbers. Right now it's a string
+- [x] slow down scraping. Randomize requests between 10 - 20 seconds
+- [x] print progress bar
+
+
+### Naming convention
 - [x] redo all variable names
 	- [x] remove scrape at the end
 - [x] remove variables with same name:
 	- [x] Ex: product_item. Doesn't affect code. Just not good code I suppose
 
-- [x] ~~import files~~
-	- [x] ~~soupified_list won't import at all: txt/py or str/non-string~~
-- [x] csv file
-- [x] remove all urls except for the main one
+
+
+### Readme.md + github
+- [x] send both to Github. Notes as README.md page
+- [x] Approve "little_feature" + "basic_scrape" mergers, in that order
 
 
 ### Product hrefs
@@ -169,17 +163,55 @@ Naming convention
 		- [x] need a url for each category - regex urls 
 			- [x] list of categories, for loop to use cateogry within a url
 
+### Avoid Blocks
+- ~~learn how to use try/except for proxies_list. Except: use own IP address~~ *not worth the effort. Based on looking through the robots.txt file and realizing the need to buy premium proxies, will scrape as normal*
+
 
 ### large_webscrape
-*To be used later*
+*Description items to be divided *
 - [x] category_scrape: list of clothing category titles (features)
 	- [x] category_urls: url for each item in category_scrape
 	- [x] product_filter_1sthalf: Product category type, first half of page
-	- [x] pattern_accents_2ndhalf: Product category type, 2nd half of page
-- [ ] combine functions within each other *need to use classes*
-	
+	- [x] pattern_accents_2ndhalf: Product category type, 2nd half of page	
+
+
+---
+
+
+
+
+
+### Tested and Failed
+importing functions:  caused circular dependencies
+
+- realized I cannot use [[Beautiful Soup]] HTML parser for [[Thredup]] because I cannot extract all the hrefs from the site for all the items. I have no idea where they are then! 
+	- [[XML]] will be the way to go, all items are in a grid with the 2nd to last number increasing for each item.
+- ~~add item per row, rather than at the end of the list~~ *would require too much memory and time to write each row rather than 50 rows at a time*
+
+---
+
+
+
 ---
 # Notes
+### Description for tops:
+- Search shorts: rompers are also displayed and identified as dresses
+- contents of rayon, nylon and viscose cannot be higher than 50%
+separate function that eliminates these materials completely
+
+Style
+shoulder cut - doesn't always pertain
+pattern
+
+accents
+accents
+accents
+"work" - doesn't belong anywhere
+neckline - contains the word neck
+sleeve length - contains sleeve
+color
+- two tops are exactly the same but have different descriptions. [Here](https://www.thredup.com/product/women-cotton-ann-taylor-loft-pink-short-sleeve-blouse/79780008?sizing_id=750,755,756,765,774,778,791,799) and [here](https://www.thredup.com/product/women-cotton-ann-taylor-loft-red-short-sleeve-blouse/80488225?sizing_id=750,755,756,765,774,778,791,799)
+	- this [blue top](https://www.thredup.com/product/women-rayon-ann-taylor-loft-outlet-teal-short-sleeve-blouse/80475452?sizing_id=750,755,756,765,774,778,791,799) and [white top](https://www.thredup.com/product/women-rayon-ann-taylor-loft-outlet-teal-short-sleeve-blouse/80475452?sizing_id=750,755,756,765,774,778,791,799) are similar to the red tops above. Again, different descriptions
 - when jumping between different categories, the "sort by" method changes to "Recently Discounted" by default
 - Only product filters all clothing items have in common are:
 	- color
@@ -199,7 +231,7 @@ Naming convention
 - [ ] [robots.txt](https://www.thredup.com/robots.txt): rules of scraping such as frequency and specific pages
 - [ ] Thredup doesn't have an API, not for Python atleast
 - [robots.txt](https://www.thredup.com/robots.txt) doesn't seem to mind scraping petite items. No crawl rate mentioned either
-
+- [ ] thredup should have a database of the top 10 brands and their measurements and it should automatically pull from that when a brand is matched
 
 
 - [ ] where does Viscose fall into place?
@@ -274,7 +306,6 @@ Vestiaire Collective (luxury)
     - Description: dictionary with 6 to 8 keywords. These are values only. Need keys from search results link (left column). All values match a key to the columns on the left
     - Pull all keys from the columns first, then match their values based on the item description
 
-# [[Machine Learning]] in action:
 
 
 
@@ -431,3 +462,16 @@ sorted by *newest first*
 /petite **/tops?search_tags=women-tops&** department_tags=petite&include_petite=true&skip_equivalents=true&sizing_id=750%2C755%2C756%2C765%2C774%2C791%2C799&sort=newest_first&page=1
 
 ---
+
+# Thredup_Sort
+
+Thredup is an online consignment store with thousands of options but their filtering system could be better. Due to environmental reasons, I only purchase clothing made of natural materials (wool, cotton, silk, etc.) and avoid polyester and any clothing where the fabric content is unknown.
+
+The following code filters out clothing by removing search results with the words: "Polyester”, “Fabric details not available" and "No Fabric Content". A URL is input as a variable and all results (that don't contain the forbidden words) are opened in a new tab for viewing.
+
+
+“url” – (line 11) the only input into the file. Take the current URL from the thredup page and replace the current default.
+
+
+---
+
