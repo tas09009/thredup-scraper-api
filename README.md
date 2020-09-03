@@ -1,8 +1,9 @@
+
 # Thredup Database
-*A webscraper to extract the following clothing information from thredup's website for petite clothing*
+*A webscraper to extract individual product links from a search page (50 per page) and then parse each product link to pull the following information:*
 
 Information to be extracted | Function | Example
-----|-----|-----
+|---------------------------|----------|--------|
 Link | url of each item on a page | [Item_Link](https://www.thredup.com/product/women-cotton-tommy-hilfiger-blue-pullover-sweater/58862377?sizing_id=750,755,756,765,791,799,774)
 Category Type | clothing type | Tops
 Image_Link | front picture of item | [Picture_Link](https://cf-assets-thredup.thredup.com/assets/174145145/retina.jpg)
@@ -33,26 +34,39 @@ Objective:
 
 
 ### Addresses issues with Thredup's website
-- limited filters within the "petite" category
-- not able to search by fabrics
-	- linen/cotton combination
-	- 100% wool
-- not able to filter out fabrics
-	- no polyester
-==more issues listed below==
+- limited filters within the "petite" category such as
+	- not able to search by fabrics
+		-Ex:  linen/cotton combination
+		- Ex: 100% wool
+	- not able to filter out fabrics
+		- Ex: no polyester
+		- Ex: no polyester **or** acrylic
 
 # Installation
-Fork this directory and run the program through the command line. 
-Linux:
-Mac:
-Windows:
+*Due to testing the scraping component, some of the inputs are hardcoded for now. Here are instructions for scraping items for yourself:
+
+1. Fork this directory and then go into the /thredup-scraper-api/code/database_basic_scrape.py file to change the following variables. This is the main .py file where everything runs.
+2. Open up thredup.com and search for a category type (Ex: sweaters) and filter out by size and any of the other features you are specifically looking for
+3. Line 32: Copy the url link and replace variable `url_original`
+4. Line 51: range represents page numbers. Leave as 1 but change the second number to how ever many pages you want to scrape. If there are only 5 pages, then put down (1,6) since it needs to include the 5th page.
+5. Line 187: change the location and name of the csv file to be exported. The default location is set to `thredup-scraper-api/datasets/test_runs`
+6. Run the code or run through the terminal:
+
+- Linux/Mac: `python ~/thredup-scraper-api/code/database_basic_scrape.py`
+
+- Windows:
+
+### Things to know:
+- This project doesn't use rotating proxies and HTTP headers due to time/money. Therefore, the code has a 5-10 second timer delay to each request being pulled.
+- Scraping one page i.e. 50 items per page, will take 6 to 8 minutes. 
+
+
  
 ## Programs
-**basic_scrape.py**
-*webscrapes individual product links from a search page (50 per page) and then parses each product link to pull the following information*
+
 
 **thredup_tabs.py**
-***Objective**: Filters out clothing by removing search results with the words: "Polyester”, “Fabric details not available" and "No Fabric Content" on the current thredup search page.*
+**Objective**: Filters out clothing by removing search results with the words: "Polyester”, “Fabric details not available" and "No Fabric Content" on the current thredup search page.
 
 >**How to use it**
 >- input: url of current page
@@ -60,7 +74,14 @@ Windows:
 
 
 ## Requirements
-### Modules
+
+### Easiest
+"_______________" conda environment is uploaded to be able to use it right out of the box.
+
+### Second Easiest
+- Python 3.0 or greater
+
+#### Modules
 - requests
 - re
 - time
@@ -70,10 +91,18 @@ Windows:
 - numpy
 - alive_progress
 
-# How to use
 
 # Kanban
 ## To do
+
+- [ ] use sys.argv to input url. Run program from command line
+- [ ] pause the program to continue running a different day/run remotely. Get a raspberry pi for this?
+- [ ] put together a summer wardrobe: tops, shorts, dresses, pants? and accessories?
+- [ ] ml model to recommend calling based on style: boho, classic, etc.
+- [ ] basically sort by fabrics first, then style, then price
+- [ ] quick glance at tables prior to merging all tables:
+	- [ ] category_type of sweaters is tops. Manual change
+- [ ] create a new conda environment to upload
 
 
 Features
@@ -104,9 +133,9 @@ Efficiency
 
 ## In Progress
 ### Random
-- [ ] scrape 300 products/category. Ex: 300 tops, 300 shorts etc. based on season
-	- [ ] ~~summer~~ *summer is now over :(*
-	- [ ] fall wardrobe: *what percentage can be used for the following, after filtration indifferent to style. What about post style?*
+	- [ ] fall wardrobe: at least 300 items per category
+	
+	
 		- [x] sweaters
 		- [x] jacket
 		- [x] long-sleeve shirt
@@ -194,6 +223,8 @@ importing functions:  caused circular dependencies
 
 ---
 # Notes
+*what percentage can be used for the following, after filtration indifferent to style. What about post style?*
+
 ### Description for tops:
 - Search shorts: rompers are also displayed and identified as dresses
 - contents of rayon, nylon and viscose cannot be higher than 50%
