@@ -20,12 +20,13 @@ An example of what the database looks like (so far):
 
 
 # Purpose
-> **Quick Intro** Most clothing is environmentally damaging to the environment, even AFTER it's been bought. For example, washing polyester or any plastic-made clothing in the washing machine releases micro-plastics in the ocean. In addition, wearing non-natural fibers is less comfortable, breathable, and falls apart quicker than stronger fabrics made of linen, wool, silk, etc. Of course, we are speaking in general terms. Everything also depends on the company, manufacturer, quality, etc. 
-> Buying used clothing is generally better than new. 
+> Most clothing is environmentally damaging to the environment, even AFTER it's been bought. For example, washing polyester or any plastic-made clothing in the washing machine releases micro-plastics in the ocean. In addition, wearing non-natural fibers is less comfortable, less breathable, and falls apart quicker than stronger fabrics made of linen, wool, silk, etc. Of course, we are speaking in general terms. Microplastics and environmental damage also depend on the company, manufacturer, process of using materials (Ex: recycled polyester), quality, etc. 
+**Used clothing > new clothing**
 > - Less environmental damage
-> - less waste ($billions of clothing is thrown away each year)
+> - less waste ($billions of usable clothing is thrown away each year)
+> - less shipping involved. New items are shipped from location to location to create the final product wheras a used item is shipped once to a new owner
 > - more available styles since vintage pieces are hard to buy new
-> - many more benefits that you can read ==(include website)==
+> - many more benefits that you can read ______________________________
 
 Objective: 
 - filter out clothing by fabrics (polyester, polyamide, etc.)
@@ -63,10 +64,14 @@ Objective:
 
  
 ## Programs
-
+*This project contains other libraries/python programs separate from the database project within the '/code/additional_modules' directory. They are:
 
 **thredup_tabs.py**
-**Objective**: Filters out clothing by removing search results with the words: "Polyester”, “Fabric details not available" and "No Fabric Content" on the current thredup search page.
+*Scrapes a given number of items withing a search page to gilters out clothing by the following "Materials":*
+- Polyester
+- Acrylic
+- Fabric details not available
+- No Fabric Content
 
 >**How to use it**
 >- input: url of current page
@@ -76,7 +81,8 @@ Objective:
 ## Requirements
 
 ### Easiest
-"_______________" conda environment is uploaded to be able to use it right out of the box.
+"_______________" conda environment is uploaded to be able to use it right out of the box. Download this first then 
+`git clone https://github.com/tas09009/thredup-scraper-api.git`
 
 ### Second Easiest
 - Python 3.0 or greater
@@ -92,35 +98,17 @@ Objective:
 - alive_progress
 
 
+
+
+---
+
+
+
+
 # Kanban
 ## To do
 
-- [ ] use sys.argv to input url. Run program from command line
-- [ ] pause the program to continue running a different day/run remotely. Get a raspberry pi for this?
-- [ ] put together a summer wardrobe: tops, shorts, dresses, pants? and accessories?
-- [ ] ml model to recommend calling based on style: boho, classic, etc.
-- [ ] basically sort by fabrics first, then style, then price
-- [ ] quick glance at tables prior to merging all tables:
-	- [ ] category_type of sweaters is tops. Manual change
-- [ ] create a new conda environment to upload
-
-
-Features
-- [ ] bug tracker
-- [ ] logger
-- [ ] speed up program and compare log files
-- [ ] functionize everything in database_basic_scrape
-- [ ] View/preview images
-- [ ] requirements.txt file + conda environment
-- [ ] python library to be used outside of this environment
-- [ ] blog post write-up
-
-Efficiency
-- [ ] parse a smaller section of a product's page (`ui-container u-flex _36TeFiFjuh5xlahzk4iZeQ`) which contains all elements that I'm looking for (double check): measurements, size, materials, etc.
-	- [ ] only issue is not being able to scrape category_type (not included above)
-	- [ ] 6125 lines of code - parsing entire product_page over and over
-	- [ ] 107 lines of code - parsing just the element above
-- [ ] simplify CSS tags (remove spaces)
+### Improve Code
 
 ### Inputs from user
 - [ ] sys.argv:
@@ -131,25 +119,56 @@ Efficiency
 
 
 
+### Features
+- [ ] bug tracker
+- [ ] logger
+- [ ] speed up program and compare log files
+- [ ] View/preview images
+- [ ] requirements.txt file + conda environment
+- [ ] python library to be used outside of this environment
+- [ ] blog post write-up
+
+### Efficiency
+- [ ] functionize everything in database_basic_scrape
+- [ ] parse a smaller section of a product's page (`ui-container u-flex _36TeFiFjuh5xlahzk4iZeQ`) which contains all elements that I'm looking for (double check): measurements, size, materials, etc.
+	- [ ] only issue is not being able to scrape category_type (not included above)
+	- [ ] 6125 lines of code - parsing entire product_page over and over
+	- [ ] 107 lines of code - parsing just the element above
+- [ ] simplify CSS tags (remove double tags)
+- [ ] use scrappy instead of bs4. Scrappy is better designed for multi-page parsing
+
+### Automate
+- [ ] append all items for all pages to a *single* csv file
+	- [ ] If not: merge csv files within category_type 
+- [ ] verify category_type for each csv
+- [ ] merge all csv files together -> ready for data analysis!
+	
+- [ ] create a new conda environment to upload
+
+### Data Science/Machine Learning
+- [ ] Extract additional features from the "Description" column
+	- [ ] color, sleeve length, neckline, etc.
+- [ ] ml model to recommend calling based on style: boho, classic, etc.
+
+
+
 ## In Progress
-### Random
-	- [ ] fall wardrobe: at least 300 items per category
-	
-	
-		- [x] sweaters
-		- [x] jacket
-		- [x] long-sleeve shirt
-		- [x] long-sleeve dress. Can be wool
-		- [x] pants
+### Autumn Wardrobe
+- [x] at least 300 items per category
+	- [x] sweaters
+	- [x] jacket
+	- [x] long-sleeve shirt
+	- [x] long-sleeve dress. Can be wool
+	- [x] pants
+- [ ] merge all tables together
+	- [ ] category_type of sweaters is tops. Manual change
+
 - [ ] create a kanban board on github
 
 ### Readme.md + github
-- [ ] Clean up all notes on this page
+- [ ] Organize README.md
 - [x] Clean up all code (as much as possible)
 - [x] files -> directories
-
-### Postgresql database: all data from csv files combined into one
-
 
 
 ## Done
@@ -213,8 +232,8 @@ Efficiency
 ### Tested and Failed
 importing functions:  caused circular dependencies
 
-- realized I cannot use [[Beautiful Soup]] HTML parser for [[Thredup]] because I cannot extract all the hrefs from the site for all the items. I have no idea where they are then! 
-	- [[XML]] will be the way to go, all items are in a grid with the 2nd to last number increasing for each item.
+- realized I cannot use Beautiful Soup HTML parser for Thredup because I cannot extract all the hrefs from the site for all the items. I have no idea where they are then! 
+	- XML will be the way to go, all items are in a grid with the 2nd to last number increasing for each item.
 - ~~add item per row, rather than at the end of the list~~ *would require too much memory and time to write each row rather than 50 rows at a time*
 
 ---
@@ -224,6 +243,8 @@ importing functions:  caused circular dependencies
 ---
 # Notes
 *what percentage can be used for the following, after filtration indifferent to style. What about post style?*
+Can I use ML to classify sweaters as actual sweaters?
+- basically sort by fabrics first, then style, then price
 
 ### Description for tops:
 - Search shorts: rompers are also displayed and identified as dresses
@@ -241,6 +262,8 @@ accents
 neckline - contains the word neck
 sleeve length - contains sleeve
 color
+
+## Website inconsistencies
 - two tops are exactly the same but have different descriptions. [Here](https://www.thredup.com/product/women-cotton-ann-taylor-loft-pink-short-sleeve-blouse/79780008?sizing_id=750,755,756,765,774,778,791,799) and [here](https://www.thredup.com/product/women-cotton-ann-taylor-loft-red-short-sleeve-blouse/80488225?sizing_id=750,755,756,765,774,778,791,799)
 	- this [blue top](https://www.thredup.com/product/women-rayon-ann-taylor-loft-outlet-teal-short-sleeve-blouse/80475452?sizing_id=750,755,756,765,774,778,791,799) and [white top](https://www.thredup.com/product/women-rayon-ann-taylor-loft-outlet-teal-short-sleeve-blouse/80475452?sizing_id=750,755,756,765,774,778,791,799) are similar to the red tops above. Again, different descriptions
 - when jumping between different categories, the "sort by" method changes to "Recently Discounted" by default

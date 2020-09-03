@@ -3,12 +3,6 @@ from bs4 import BeautifulSoup
 import pandas as pd
 from alive_progress import alive_bar
 
-
-
-# from proxies_list import proxies_pool
-
-# ------------------------------------------------------------------------------------
-
 '''
 Input: 
 - url: searched items
@@ -26,26 +20,8 @@ XXS, XS, SM
 Exclude One size
 '''
 
-
-# url needs to be sorted by newest first
-
 url_original = 'https://www.thredup.com/petite/pants?search_tags=women-pants&department_tags=petite&skip_equivalents=true&sizing_id=778%2C774%2C791%2C799&sort=price_low_high&page=1'
-url = url_original[:-1] #+ '&page='
-
-
-# csv_file = open('basic_scrape_test4.csv', 'w')
-# csv_writer = csv.writer(csv_file)
-# csv_writer.writerow(['Link', 'Image_Link', 'Description', 'Category_Type', 'Materials', 'Size', 'Measurements', 'Price', 'Brand'])
-
-
-
-
-# pbar = ProgressBar()
-# ------------------------------------------------------------------------------------
-'''
-Extract product link for each item on page
-'''
-
+url = url_original[:-1]
 
 product_list = []
 for page_number in range(1,7): # Everytime range increases, items increase by 50. Ordered by "Newest first"
@@ -54,7 +30,6 @@ for page_number in range(1,7): # Everytime range increases, items increase by 50
     # Parse HTML and pull all href links
     response = requests.get(url_page)
     main_page_items = BeautifulSoup(response.text, 'html.parser')
-    # main_page_items = response.css(div.grid)
     
     hrefs = []
     product_list = []
@@ -63,27 +38,18 @@ for page_number in range(1,7): # Everytime range increases, items increase by 50
         product = i.find('a', {'class': '_1di0il_2VkBBwWJz9eDxoJ'}).get('href')
         product_list.append(product)
 
-# ------------------------------------------------------------------------------------
-# Code below will need to be indented to accomodate multiple page searches
-
-    url_front = 'https://www.thredup.com'
-
-    
+    url_front = 'https://www.thredup.com' 
     for a in product_list:
         hrefs.append(url_front + a)
-    # This marks the end of the page search. Page 2, etc. now begins
 
 
-    # hrefs = hrefs[0:2]
-
-    # Lists to store scraped data
-
-        category_type = [] # Tops, bottoms
+        # Lists to store scraped data for each of the 50 items per page
+        category_type = []
         image = []
         description = []
         materials = []
-        size = [] # ['Size S '] removes the word 'petite' as well, not needed
-        measurements = [] # ['24" Length']
+        size = [] 
+        measurements = [] 
         price = []
         brand = []
 
@@ -140,7 +106,6 @@ for page_number in range(1,7): # Everytime range increases, items increase by 50
             price_search = product_page_soupified.findAll('section', {'class': '_36TeFiFjuh5xlahzk4iZeQ'})
             for i in price_search:
                 product_price = i.find('span', {'class': 'RFcwwL7_eda8sdWkyafAr'}).getText()
-                # product_price_int = int(product_price[1:])
                 price.append(float(product_price[1:]))
 
 
@@ -149,27 +114,9 @@ for page_number in range(1,7): # Everytime range increases, items increase by 50
                 product = i.find('a', {'class': '_32zNmjMSfxcoBWGGlzPobp'}).get('title')
                 brand.append(product)
 
-            # csv_writer.writerow([hrefs, category_type, image, description, materials, size, measurements, price, brand])
-
             
             time.sleep(random.randrange(5,10))
-            
             bar()
-            # Show progress of completed items    
-            # print('Completed {i}/50 items'.format(i=i)
-
-
-
-    # print(hrefs)
-    # print(len(hrefs))
-    # print(len(image))
-    # print(len(materials))
-    # print(len(size)) 
-    # print(len(measurements))
-    # print(len(category_type))
-    # print(len(price))
-    # print(len(brand))
-
 
         basic_scrape = pd.DataFrame({
             'Link': hrefs,
@@ -182,7 +129,6 @@ for page_number in range(1,7): # Everytime range increases, items increase by 50
             'Price': price,
             'Brand': brand})
 
-        # df = pd.DataFrame.from_dict(basic_scrape)
 
         basic_scrape.to_csv(r'/home/taniya/Projects/thredup-scraper-api/datasets/test_runs/autumn_clothing/pants{page_number}.csv'.format(page_number=page_number), index=False, header=True)
 
