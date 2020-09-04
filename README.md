@@ -32,8 +32,8 @@ Picture of what the database looks like (so far). *You can also look at the "dat
 - [Background](#Background)
 - [Installation](#Installation)
 - [Usage](#Usage)
-- [Road Map](#Road\ Map)
-- [Additional Modules](#Additional\ Modules)
+- [Road Map](#Road-Map)
+- [Additional Modules](#Additional-Modules)
 
 
 
