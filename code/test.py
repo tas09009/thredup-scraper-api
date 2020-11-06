@@ -1,11 +1,18 @@
-import requests, re
-from bs4 import BeautifulSoup
-from itertools import cycle
-import traceback
-import random
+class Solution:
+    def twoSum(self, nums, target):
+        """
+        :type nums: List[int]
+        :type target: int
+        :rtype: List[int]
+        """
+        h = {}
+        for i, num in enumerate(nums):
+            n = target - num
+            if n not in h:
+                h[num] = i
+            else:
+                return [h[n], i]
 
+testing = Solution()
+print(testing.twoSum([3,2,4], 6))
 
-url_original = 'https://www.thredup.com/petite/outerwear?search_tags=women-outerwear&department_tags=petite&skip_equivalents=true&sizing_id=765%2C756%2C774&sort=price_low_high&page=1'
-url = url_original[:-1] #+ '&page='
-
-print(url)

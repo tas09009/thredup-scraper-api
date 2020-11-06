@@ -1,3 +1,9 @@
+## Data Clean up
+`cat *.csv >merged.csv` *bash* merge all csv files
+`pd.read_csv('')` *python - pandas* import into jupyter notebook
+`df.drop_duplicates()` *python - pandas* drop all headers
+`df.drop(df.index[52])`
+
 
 ## Notes
 *what percentage can be used for the following, after filtration indifferent to style. What about post style?*
