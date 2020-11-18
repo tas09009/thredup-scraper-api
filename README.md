@@ -359,6 +359,7 @@ Bad fabrics:
 - acrylic
 - fabric not found
 - No Fabric Content
+
 Good fabrics:
 - cotton
 - silk
