@@ -6,15 +6,21 @@
 import requests, time, re, pprint, sys, webbrowser
 from bs4 import BeautifulSoup
 from selenium import webdriver
-from selenium.webdriver.common.by import By
+# from selenium.webdriver.common.by import By
 
 url = 'https://www.thredup.com/products/petite?chars_sleeve_length=short%20sleeve&department_tags=petite&search_tags=women-tops%2Cwomen-tops-button-down-shirts&sizing_id=750%2C755%2C756%2C765&skip_equivalents=true&state=listed'
 response = requests.get(url)
 soup = BeautifulSoup(response.text, "html.parser") # <class 'bs4.BeautifulSoup'> # print(soup.prettify()) # class 'str'
 
 # Find all href links that contain: "_1di0il_2VkBBwWJz9eDxoJ". This element represents each item on the page
-list_link_partial = [link['href'] for link in soup.findAll("a", {"class": "_1di0il_2VkBBwWJz9eDxoJ"})]
+# list_link_partial = [link['href'] for link in soup.findAll("a", {"class": "_1di0il_2VkBBwWJz9eDxoJ"})]
 
+list_link_partial = []
+grid_products = soup.findAll('div', {'class': 'grid-item'})
+for i in grid_products:
+	product = i.find('a', {'class': 'WCdF1-WeVI0oEKb0AIa4c'}).get('href')
+	list_link_partial.append(product)
+	
 # Add the front part of the webpage to make a full html link
 url_front = 'https://www.thredup.com'
 list_link = [url_front + a for a in list_link_partial]

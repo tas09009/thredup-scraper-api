@@ -20,7 +20,7 @@ XXS, XS, SM
 Exclude One size
 '''
 
-url_original = 'https://www.thredup.com/women?department_tags=women&text=alpaca%20beanie&sizing_id=765%2C799%2C791%2C774%2C755%2C756%2C750&include_petite=true'
+url_original = 'https://www.thredup.com/petite?chars_sleeve_length=short%20sleeve&department_tags=petite&search_tags=women-tops%2Cwomen-tops-button-down-shirts&sizing_id=750%2C755%2C756%2C765&skip_equivalents=true&state=listed&color_names=blue&condition=q1_only'
 url = url_original[:-1]
 
 product_list = []
@@ -129,5 +129,5 @@ for page_number in range(1,2): # Everytime range increases, items increase by 50
             'Brand': brand})
 
 
-        basic_scrape.to_csv(f'/home/taniya/Projects/thredup-scraper-api/data/test_runs/test{page_number}.csv', index=False, header=True)
+        basic_scrape.to_csv(f'/home/taniya/projects/thredup-scraper-api/data/test_runs/{page_number}.csv', index=False, header=True)
 

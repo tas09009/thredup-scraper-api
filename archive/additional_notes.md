@@ -1,20 +1,46 @@
+# README.md contains a more updated version of the notes below
+
+## SQL table creation
+CREATE TABLE wardrobe_work (
+  Link VARCHAR(250),
+  Image_Link VARCHAR(250),
+  Category_Type VARCHAR(50),
+  Description VARCHAR(250),
+	Materials VARCHAR(250),
+	Size VARCHAR(250),
+	Measurements VARCHAR(250),
+	Price NUMERIC(6,2),
+	Brand VARCHAR(250),
+  PRIMARY KEY (Link)
+)
+
+**Select 2 random rows from 'Sweaters'** - SQL
+SELECT
+	*
+FROM wardrobe_work
+WHERE materials LIKE '%Wool%'
+AND category_type = 'Sweaters'
+ORDER BY RANDOM() 
+LIMIT 2;
+
+
 ## Data Clean up
 `cat *.csv >merged.csv` *bash* merge all csv files
 `pd.read_csv('')` *python - pandas* import into jupyter notebook
 `df.drop_duplicates()` *python - pandas* drop all headers
 `df.drop(df.index[52])`
 
+## Data Exploration
+- How much clothing is actually usable to build a wardrobe?
+	- Filtering by fabrics. 1st round: polyester, etc. 2nd round: rayon, nylon and viscose
+	- Style
+	- Price
+- Unique description tags
 
-## Notes
-*what percentage can be used for the following, after filtration indifferent to style. What about post style?*
-Can I use ML to classify sweaters as actual sweaters?
-- basically sort by fabrics first, then style, then price
+## Machine Learning
+- Classify sweaters as actual sweaters?
 
 ### Description for tops:
-- Search shorts: rompers are also displayed and identified as dresses
-- contents of rayon, nylon and viscose cannot be higher than 50%
-separate function that eliminates these materials completely
-
 Style
 shoulder cut - doesn't always pertain
 pattern
@@ -28,6 +54,7 @@ sleeve length - contains sleeve
 color
 
 ## Website inconsistencies
+- Search shorts: rompers are also displayed and identified as dresses
 - two tops are exactly the same but have different descriptions. [Here](https://www.thredup.com/product/women-cotton-ann-taylor-loft-pink-short-sleeve-blouse/79780008?sizing_id=750,755,756,765,774,778,791,799) and [here](https://www.thredup.com/product/women-cotton-ann-taylor-loft-red-short-sleeve-blouse/80488225?sizing_id=750,755,756,765,774,778,791,799)
 	- this [blue top](https://www.thredup.com/product/women-rayon-ann-taylor-loft-outlet-teal-short-sleeve-blouse/80475452?sizing_id=750,755,756,765,774,778,791,799) and [white top](https://www.thredup.com/product/women-rayon-ann-taylor-loft-outlet-teal-short-sleeve-blouse/80475452?sizing_id=750,755,756,765,774,778,791,799) are similar to the red tops above. Again, different descriptions
 - when jumping between different categories, the "sort by" method changes to "Recently Discounted" by default
@@ -36,8 +63,7 @@ color
 	- pattern
 	- accents
 - This project will be helpful to only those who are *petite* but eventually should expand to the others as well
-	- Use [baserow](https://baserow.io/) as an online database to host the extension?
-- Catch microplastics in wahsing machine (if you have to buy polyester) with: 
+- Catch microplastics in washing machine (if you have to buy polyester) with: 
 	- [coraball](https://coraball.com/)
 	- [filtrol](https://filtrol.net/)
 	- [Guppyfriend washing bag](https://us.guppyfriend.com/)
@@ -48,8 +74,29 @@ color
 - [ ] Integrate IP addresses [Web scraping with Python](https://medium.com/web-scraping-a-z) - 3 medium articles
 - [ ] [robots.txt](https://www.thredup.com/robots.txt): rules of scraping such as frequency and specific pages
 - [ ] Thredup doesn't have an API, not for Python atleast
-- [robots.txt](https://www.thredup.com/robots.txt) doesn't seem to mind scraping petite items. No crawl rate mentioned either
 - [ ] thredup should have a database of the top 10 brands and their measurements and it should automatically pull from that when a brand is matched
+
+## Website difficulties
+- item picture - high resolution only
+- website link
+	- very difficult to pull, none of the links would appear. Realized that the search results display in order of "Recently Discounted" with no account login. As opposed to how I was searching "Newest First" with account logged in
+		- wow it's not even how it's sorted. It's the fact that there is no account logged in. Then it works??
+		- Organized by **Newest First** which makes re-running code much easier, can update the database by webscarpping until first item is found already in the database	
+- price - of course
+- size - including petite site will already be filtered for petite items
+- All item details
+    - Description: dictionary with 6 to 8 keywords. These are values only. Need keys from search results link (left column). All values match a key to the columns on the left
+    - Pull all keys from the columns first, then match their values based on the item description
+
+## Lessons Learned
+- Search by petite first, then sort. Rather than search all and then filter by petite. In the case of searching by a specific fabric (Ex: 100% merino wool), it's easier to search within the petite clothing and then filter out by fabric.
+- difficult to loop through different clothing types **and** multiples pages within a clothing type. Easier for now to search for one clothing type at a time.
+
+importing functions:  caused circular dependencies
+
+- realized I cannot use Beautiful Soup HTML parser for Thredup because I cannot extract all the hrefs from the site for all the items. I have no idea where they are then! 
+	- XML will be the way to go, all items are in a grid with the 2nd to last number increasing for each item.
+- ~~add item per row, rather than at the end of the list~~ *would require too much memory and time to write each row rather than 50 rows at a time*
 
 
 - [ ] where does Viscose fall into place?
@@ -88,11 +135,12 @@ Sources:
 
 
 ## Resources:
-[Web scraping with Python — A to Z](https://towardsdatascience.com/web-scraping-with-python-a-to-copy-z-277a445d64c7) - follow this guide
+- [Web scraping with Python — A to Z](https://towardsdatascience.com/web-scraping-with-python-a-to-copy-z-277a445d64c7) 
+- [Automatic ticket classification](https://cdn2.hubspot.net/hubfs/307358/SmartAssist/E-books/SmartAssist_ThredUp_case_study.pdf) - thredup automated tickets 
+- [robots.txt](https://www.thredup.com/robots.txt) doesn't seem to mind scraping petite items. No crawl rate mentioned either
+- Use [baserow](https://baserow.io/) as an online database to host the extension?
 
-[Automatic ticket classification](https://cdn2.hubspot.net/hubfs/307358/SmartAssist/E-books/SmartAssist_ThredUp_case_study.pdf) - thredup automated tickets 
 
----
 ## Questions to answer:
 - what percentage of clothing is considered "environmentally damaging" i.e. made of "banned" products
 - how many items are correctly sorted in their category?
@@ -104,23 +152,8 @@ Sources:
 	- Ex: size 00 and 0 for top but 2 for bottoms. But website cannot differentiate
 - data may need to be cleaned up prior to putting into database?
 	- links will need to be made beforehand
----
-
-- item picture - high resolution only
-- website link
-	- very difficult to pull, none of the links would appear. Realized that the search results display in order of "Recently Discounted" with no account login. As opposed to how I was searching "Newest First" with account logged in
-		- wow it's not even how it's sorted. It's the fact that there is no account logged in. Then it works??
-		- Organized by **Newest First** which makes re-running code much easier, can update the database by webscarpping until first item is found already in the database	
-- price - of course
-- size - including petite site will already be filtered for petite items
-- All item details
-    - Description: dictionary with 6 to 8 keywords. These are values only. Need keys from search results link (left column). All values match a key to the columns on the left
-    - Pull all keys from the columns first, then match their values based on the item description
 
 
-
-
-# Python Script
 
 
 
@@ -193,16 +226,6 @@ Good fabrics:
 - bamboo 
 - tencel
 
-## Lessons Learned
-- Search by petite first, then sort. Rather than search all and then filter by petite. In the case of searching by a specific fabric (Ex: 100% merino wool), it's easier to search within the petite clothing and then filter out by fabric.
-- difficult to loop through different clothing types **and** multiples pages within a clothing type. Easier for now to search for one clothing type at a time.
-
-
-importing functions:  caused circular dependencies
-
-- realized I cannot use Beautiful Soup HTML parser for Thredup because I cannot extract all the hrefs from the site for all the items. I have no idea where they are then! 
-	- XML will be the way to go, all items are in a grid with the 2nd to last number increasing for each item.
-- ~~add item per row, rather than at the end of the list~~ *would require too much memory and time to write each row rather than 50 rows at a time*
 
 
 
@@ -210,7 +233,7 @@ importing functions:  caused circular dependencies
 
 Links saved in Favorites for "loft romper"
 
----
+
 
 ---
 

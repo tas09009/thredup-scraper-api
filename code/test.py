@@ -1,18 +1,15 @@
-class Solution:
-    def twoSum(self, nums, target):
-        """
-        :type nums: List[int]
-        :type target: int
-        :rtype: List[int]
-        """
-        h = {}
-        for i, num in enumerate(nums):
-            n = target - num
-            if n not in h:
-                h[num] = i
-            else:
-                return [h[n], i]
+import glob
+import pandas as pd
+import os, re
 
-testing = Solution()
-print(testing.twoSum([3,2,4], 6))
+
+
+file_name = "coats"
+# product = '61% Cotton, 36% Acrylic, 3% Other'
+
+
+df = pd.read_csv(f'/home/taniya/Projects/thredup-scraper-api/data/test_runs/merged_{file_name}.csv')
+df_materials_banned = ~df.Materials.str.contains("Polyester|Polyamide|Polyethylene|Polymide|Acrylic|Synthetic|No Fabric Content")
+df_materials_banned_removed = df[df_materials_banned]
+df_materials_banned_removed.to_csv(f'/home/taniya/Projects/thredup-scraper-api/data/test_runs/clean_{file_name}.csv', index=False)
 

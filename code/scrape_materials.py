@@ -16,9 +16,12 @@ from alive_progress import alive_bar
 
 url1 = input("url link: ")
 pages = int(input("# of pages to scrape - 5 minutes/page: "))
-file_name = input("name of file to save as - located in data folder: ")
+file_name = input("name of file to save as - (specify location): ")
 
-
+'''
+Use this url as a sample to scrape 4 items:
+https://www.thredup.com/petite?chars_sleeve_length=short%20sleeve&department_tags=petite&search_tags=women-tops%2Cwomen-tops-button-down-shirts&sizing_id=750%2C755%2C756%2C765&skip_equivalents=true&state=listed&color_names=tan
+'''
 # --------------------------------------------------
 def main():
     """Webscrape only product links and materials"""
@@ -72,19 +75,23 @@ def main():
         basic_scrape = pd.DataFrame({'Link': hrefs, 'Materials': materials})
 
         basic_scrape.to_csv(
-            f'/home/taniya/Projects/thredup-scraper-api/data/test_runs/{file_name}{page_number}.csv',
+            f'~/{file_name}{page_number}.csv',
             index=False,
             header=True)
 
-    # Merge
-    os.chdir('/home/taniya/Projects/thredup-scraper-api/data/test_runs')
-    all_filenames = [i for i in glob.glob(f'{file_name}*.csv')]
 
-    combined_csv = pd.concat([pd.read_csv(f) for f in all_filenames])
-    combined_csv.to_csv(f'merged_{file_name}.csv', index=False)
+# /home/taniya/Projects/thredup-scraper-api/data/test_runs
 
-    # Filter - different methods. user input maybe at this point?
-    # filter()
+
+    # # Merge
+    # os.chdir('/home/taniya/Projects/thredup-scraper-api/data/test_runs')
+    # all_filenames = [i for i in glob.glob(f'{file_name}*.csv')]
+
+    # combined_csv = pd.concat([pd.read_csv(f) for f in all_filenames])
+    # combined_csv.to_csv(f'merged_{file_name}.csv', index=False)
+
+    # # Filter - different methods. user input maybe at this point?
+    # # filter()
 
 
 # --------------------------------------------------
