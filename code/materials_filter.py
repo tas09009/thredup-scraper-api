@@ -13,7 +13,3 @@ df_materials_banned_removed = df[df_materials_banned]
 df_materials_banned_removed.to_csv(f'/home/taniya/Projects/thredup-scraper-api/data/test_runs/clean_{file_name}.csv', index=False)
 
 # filter("coats")
-
-
-Nylon|Viscose|Cotton
-70% Synthetic, 30% Wool
