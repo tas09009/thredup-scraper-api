@@ -129,5 +129,6 @@ for page_number in range(1,2): # Everytime range increases, items increase by 50
             'Brand': brand})
 
 
-        basic_scrape.to_csv(f'/home/taniya/projects/thredup-scraper-api/data/test_runs/{page_number}.csv', index=False, header=True)
+        # basic_scrape.to_csv(f'/home/taniya/projects/thredup-scraper-api/data/test_runs/{page_number}.csv', index=False, header=True)
+        basic_scrape.to_csv('/page_number.csv', index=False, header=True)
 
