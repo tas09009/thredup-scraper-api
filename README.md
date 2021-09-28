@@ -4,9 +4,8 @@
 
 Thredup Scraper API is a command line, python based web scraper that uses beautiful soup to extract clothing information onto a csv file. Later the project will be migrated to a back end framework to use as an API.
 ## Table of Contents
-- [How it works](#How-it-works)
 - [Background](#Background)
-- [Installation](#Installation)
+- [Install](#Install)
 - [Usage](#Usage)
 - [Additional Web Scraping Scripts](#Additional-Web-Scraping-Scripts)
 - [Contributing](#contributing)
@@ -34,26 +33,20 @@ The basic rule to follow is **Used natural-fabric clothing > new clothing** for 
 
 This program makes the following disctinctions between good vs. bad fabrics:
 
-**Good fabrics:**
-- cotton
-- silk
-- wool
-- merino wool
-- alpaca
-- linen 
-- hemp
-- bamboo 
-- tencel
-
-**Bad fabrics:**
-- polyester
-- polyamide
-- acrylic
-- fabric not found*
-- No Fabric Content*
+**Good fabrics:** | **Bad fabrics:**
+----------------- | ----------------
+cotton | polyester
+silk | polyamide
+wool | acrylic
+merino wool | fabric not found*
+alpaca | No Fabric Content*
+linen 
+hemp
+bamboo 
+tencel
 
 *many items on the site don't have fabric information, so we will assume worst case scenario
-## Installation
+## Install
 1. You can either clone the project by running`git clone https://github.com/tas09009/thredup-scraper-api.git` in your terminal or fork the project in order to contribute later: See [Contributing](#contributing) below.
 2. Set up your Python virtual environment by running `pyvenv venv` in that directory and running `source venv/bin/activate` to active it. Or create a conda environment.
 3. Install Python requirements with `pip install -r requirements.txt`.
