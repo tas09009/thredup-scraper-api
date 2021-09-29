@@ -48,9 +48,7 @@ def main():
             "div", {"class": "uiUj-TxKXzmIOHZu6poxM grid-item"}
         )
         for i in grid_products:
-            product = i.find("a", {"class": "_1di0il_2VkBBwWJz9eDxoJ"}).get(
-                "href"
-            )
+            product = i.find("a", {"class": "_1di0il_2VkBBwWJz9eDxoJ"}).get("href")
             product_list.append(product)
 
         url_front = "https://www.thredup.com"
@@ -71,15 +69,11 @@ def main():
             for link in hrefs:
 
                 response = requests.get(link)
-                product_page_soupified = BeautifulSoup(
-                    response.text, "html.parser"
-                )
+                product_page_soupified = BeautifulSoup(response.text, "html.parser")
 
                 product_type_search = product_page_soupified.findAll(
                     "nav",
-                    {
-                        "class": "_3p7XtL0LlyGSi8UgI6EU3j _12-L0I76mLCOu9b4N_SCPU"
-                    },
+                    {"class": "_3p7XtL0LlyGSi8UgI6EU3j _12-L0I76mLCOu9b4N_SCPU"},
                 )
                 for i in product_type_search:
                     product = i.find(
@@ -91,9 +85,9 @@ def main():
                     "div", {"class": "_30o7eOhD-KenCXDTlPWxw"}
                 )
                 for i in image_search:
-                    product = i.find(
-                        "a", {"class": "_17adkz6zswDjAoZ8PhDmPr"}
-                    ).get("href")
+                    product = i.find("a", {"class": "_17adkz6zswDjAoZ8PhDmPr"}).get(
+                        "href"
+                    )
                     image.append(product)
 
                 description_mini_list = []
@@ -143,9 +137,9 @@ def main():
                     "div", {"class": "u-flex _20pksgdpcQ2E8r4MYcsBXl"}
                 )
                 for i in brand_search:
-                    product = i.find(
-                        "a", {"class": "_32zNmjMSfxcoBWGGlzPobp"}
-                    ).get("title")
+                    product = i.find("a", {"class": "_32zNmjMSfxcoBWGGlzPobp"}).get(
+                        "title"
+                    )
                     brand.append(product)
 
                 time.sleep(random.randrange(5, 10))
