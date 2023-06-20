@@ -2,6 +2,8 @@
 # Thredup Scraper API
 [![standard-readme compliant](https://img.shields.io/badge/readme%20style-standard-brightgreen.svg?style=flat-square)](https://github.com/RichardLitt/standard-readme)
 
+*Thredup implemented CloudFlare to block all bots. I may look into libraries to bypass it but for now, this project has been tabled."
+
 Thredup Scraper API is a command line, python based web scraper that uses beautiful soup to extract clothing information onto a csv file. Later the project will be migrated to a back end framework to use as an API.
 ## Table of Contents
 - [Background](#Background)
